@@ -23,28 +23,37 @@
     var NexT = window.NexT || {};
     var CONFIG = {"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","version":"8.1.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}};
   </script>
-<meta property="og:type" content="website">
-<meta property="og:title" content="缘起">
-<meta property="og:url" content="http://example.com/index.html">
+<meta name="description" content="数据结构为何重要哪怕只写过几行代码的人都会发现，编程基本上就是在跟数据打交道。计算机程序总是在接收数据、操作数据或返回数据 数据结构则是指数据的组织形式 数据结构不只是用于组织数据，它还极大地影响着代码的运行速度。因为数据结构不同，程序的运行速度可能相差多个数量级。如果你写的程序要处理大量的数据，或者要让数千人同时使用，那么你采用何种数据结构，将决定它是能够运行，还是会因为不堪重负而崩溃 一旦对各">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基础数据结构及算法优化">
+<meta property="og:url" content="http://example.com/2019/10/08/base-data-struct/index.html">
 <meta property="og:site_name" content="缘起">
+<meta property="og:description" content="数据结构为何重要哪怕只写过几行代码的人都会发现，编程基本上就是在跟数据打交道。计算机程序总是在接收数据、操作数据或返回数据 数据结构则是指数据的组织形式 数据结构不只是用于组织数据，它还极大地影响着代码的运行速度。因为数据结构不同，程序的运行速度可能相差多个数量级。如果你写的程序要处理大量的数据，或者要让数千人同时使用，那么你采用何种数据结构，将决定它是能够运行，还是会因为不堪重负而崩溃 一旦对各">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://github.com/ifcalm/me_blogs/blob/master/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/img/%E7%AE%80%E5%8D%95%E4%BA%8C%E5%8F%89%E6%A0%91.PNG">
+<meta property="article:published_time" content="2019-10-08T04:32:30.000Z">
+<meta property="article:modified_time" content="2020-12-27T05:14:00.935Z">
 <meta property="article:author" content="ifcalm">
+<meta property="article:tag" content="数据结构">
+<meta property="article:tag" content="算法">
+<meta property="article:tag" content="算法优化">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://github.com/ifcalm/me_blogs/blob/master/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/img/%E7%AE%80%E5%8D%95%E4%BA%8C%E5%8F%89%E6%A0%91.PNG">
 
 
-<link rel="canonical" href="http://example.com/">
+<link rel="canonical" href="http://example.com/2019/10/08/base-data-struct/">
 
 
 <script class="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome : true,
-    isPost : false,
+    isHome : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
-<title>缘起</title>
+<title>基础数据结构及算法优化 | 缘起</title>
   
 
 
@@ -141,7 +150,7 @@
 
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
@@ -154,6 +163,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%BA%E4%BD%95%E9%87%8D%E8%A6%81"><span class="nav-number">1.</span> <span class="nav-text">数据结构为何重要</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E6%95%B0%E7%BB%84"><span class="nav-number">2.</span> <span class="nav-text">基础数据结构: 数组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9B%86%E5%90%88"><span class="nav-number">3.</span> <span class="nav-text">集合</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AE%97%E6%B3%95%E4%B8%BA%E4%BD%95%E9%87%8D%E8%A6%81"><span class="nav-number">4.</span> <span class="nav-text">算法为何重要</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84"><span class="nav-number">5.</span> <span class="nav-text">有序数组</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9F%A5%E6%89%BE%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84"><span class="nav-number">5.1.</span> <span class="nav-text">查找有序数组</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE"><span class="nav-number">6.</span> <span class="nav-text">二分查找</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE%E4%B8%8E%E7%BA%BF%E6%80%A7%E6%9F%A5%E6%89%BE"><span class="nav-number">7.</span> <span class="nav-text">二分查找与线性查找</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE%E4%BC%9A%E5%9C%A8%E6%AF%8F%E6%AC%A1%E7%8C%9C%E6%B5%8B%E5%90%8E%E6%8E%92%E9%99%A4%E6%8E%89%E4%B8%80%E5%8D%8A%E7%9A%84%E5%85%83%E7%B4%A0"><span class="nav-number">7.1.</span> <span class="nav-text">二分查找会在每次猜测后排除掉一半的元素</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%A7-O-%E8%AE%B0%E6%B3%95"><span class="nav-number">8.</span> <span class="nav-text">大 O 记法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%A7O-%E6%95%B0%E6%AD%A5%E6%95%B0"><span class="nav-number">8.1.</span> <span class="nav-text">大O:数步数</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E6%95%B0%E6%97%B6%E9%97%B4%E4%B8%8E%E7%BA%BF%E6%80%A7%E6%97%B6%E9%97%B4"><span class="nav-number">9.</span> <span class="nav-text">常数时间与线性时间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%8C%E4%B8%80%E7%AE%97%E6%B3%95%EF%BC%8C%E4%B8%8D%E5%90%8C%E5%9C%BA%E6%99%AF"><span class="nav-number">10.</span> <span class="nav-text">同一算法，不同场景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%B8%89%E7%A7%8D%E7%AE%97%E6%B3%95"><span class="nav-number">11.</span> <span class="nav-text">第三种算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%B9%E6%95%B0"><span class="nav-number">12.</span> <span class="nav-text">对数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E9%87%8AO-logn"><span class="nav-number">13.</span> <span class="nav-text">解释O(logn)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%90%E7%94%A8%E5%A4%A7O%E6%9D%A5%E7%BB%99%E4%BB%A3%E7%A0%81%E6%8F%90%E9%80%9F"><span class="nav-number">14.</span> <span class="nav-text">运用大O来给代码提速</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F"><span class="nav-number">15.</span> <span class="nav-text">冒泡排序</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F%E5%AE%9E%E6%88%98"><span class="nav-number">15.1.</span> <span class="nav-text">冒泡排序实战</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F%E7%9A%84%E6%95%88%E7%8E%87"><span class="nav-number">15.2.</span> <span class="nav-text">冒泡排序的效率</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E6%AC%A1%E9%97%AE%E9%A2%98"><span class="nav-number">16.</span> <span class="nav-text">二次问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BA%BF%E6%80%A7%E8%A7%A3%E5%86%B3"><span class="nav-number">17.</span> <span class="nav-text">线性解决</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%A8%E6%88%96%E4%B8%8D%E7%94%A8%E5%A4%A7O%E6%9D%A5%E4%BC%98%E5%8C%96%E4%BB%A3%E7%A0%81"><span class="nav-number">18.</span> <span class="nav-text">用或不用大O来优化代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%89%E6%8B%A9%E6%8E%92%E5%BA%8F"><span class="nav-number">19.</span> <span class="nav-text">选择排序</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%89%E6%8B%A9%E6%8E%92%E5%BA%8F%E5%AE%9E%E6%88%98"><span class="nav-number">19.1.</span> <span class="nav-text">选择排序实战</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%89%E6%8B%A9%E6%8E%92%E5%BA%8F%E7%9A%84%E6%95%88%E7%8E%87"><span class="nav-number">19.2.</span> <span class="nav-text">选择排序的效率</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BF%BD%E7%95%A5%E5%B8%B8%E6%95%B0"><span class="nav-number">20.</span> <span class="nav-text">忽略常数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%A7O%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="nav-number">21.</span> <span class="nav-text">大O的作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B9%90%E8%A7%82%E5%9C%B0%E8%B0%83%E4%BC%98"><span class="nav-number">22.</span> <span class="nav-text">乐观地调优</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F"><span class="nav-number">23.</span> <span class="nav-text">插入排序</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F%E5%AE%9E%E6%88%98"><span class="nav-number">23.1.</span> <span class="nav-text">插入排序实战</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F%E7%9A%84%E6%95%88%E7%8E%87"><span class="nav-number">23.2.</span> <span class="nav-text">插入排序的效率</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B9%B3%E5%9D%87%E6%83%85%E5%86%B5"><span class="nav-number">23.3.</span> <span class="nav-text">平均情况</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E6%89%BE%E8%BF%85%E9%80%9F%E7%9A%84%E6%95%A3%E5%88%97%E8%A1%A8"><span class="nav-number">24.</span> <span class="nav-text">查找迅速的散列表</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8E%A2%E7%B4%A2%E6%95%A3%E5%88%97%E8%A1%A8"><span class="nav-number">24.1.</span> <span class="nav-text">探索散列表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%94%A8%E6%95%A3%E5%88%97%E5%87%BD%E6%95%B0%E6%9D%A5%E5%81%9A%E6%95%A3%E5%88%97"><span class="nav-number">24.2.</span> <span class="nav-text">用散列函数来做散列</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%84%E7%90%86%E5%86%B2%E7%AA%81"><span class="nav-number">24.3.</span> <span class="nav-text">处理冲突</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%89%BE%E5%88%B0%E5%B9%B3%E8%A1%A1"><span class="nav-number">24.4.</span> <span class="nav-text">找到平衡</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%A8%E6%A0%88%E5%92%8C%E9%98%9F%E5%88%97%E6%9D%A5%E6%9E%84%E9%80%A0%E7%81%B5%E5%B7%A7%E7%9A%84%E4%BB%A3%E7%A0%81"><span class="nav-number">25.</span> <span class="nav-text">用栈和队列来构造灵巧的代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%88"><span class="nav-number">26.</span> <span class="nav-text">栈</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%88%E5%AE%9E%E6%88%98"><span class="nav-number">26.1.</span> <span class="nav-text">栈实战</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%98%9F%E5%88%97"><span class="nav-number">27.</span> <span class="nav-text">队列</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%98%9F%E5%88%97%E5%AE%9E%E6%88%98"><span class="nav-number">27.1.</span> <span class="nav-text">队列实战</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%92%E5%BD%92"><span class="nav-number">28.</span> <span class="nav-text">递归</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%94%A8%E9%80%92%E5%BD%92%E4%BB%A3%E6%9B%BF%E5%BE%AA%E7%8E%AF"><span class="nav-number">28.1.</span> <span class="nav-text">用递归代替循环</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9F%BA%E5%87%86%E6%83%85%E5%BD%A2"><span class="nav-number">28.2.</span> <span class="nav-text">基准情形</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%98%85%E8%AF%BB%E9%80%92%E5%BD%92%E4%BB%A3%E7%A0%81"><span class="nav-number">28.3.</span> <span class="nav-text">阅读递归代码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9C%BC%E4%B8%AD%E7%9A%84%E9%80%92%E5%BD%92"><span class="nav-number">28.4.</span> <span class="nav-text">计算机眼中的递归</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%92%E5%BD%92%E5%AE%9E%E6%88%98"><span class="nav-number">28.5.</span> <span class="nav-text">递归实战</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A3%9E%E5%BF%AB%E7%9A%84%E9%80%92%E5%BD%92%E7%AE%97%E6%B3%95"><span class="nav-number">29.</span> <span class="nav-text">飞快的递归算法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%86%E5%8C%BA"><span class="nav-number">29.1.</span> <span class="nav-text">分区</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F"><span class="nav-number">29.2.</span> <span class="nav-text">快速排序</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F%E7%9A%84%E6%95%88%E7%8E%87"><span class="nav-number">29.3.</span> <span class="nav-text">快速排序的效率</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9C%80%E5%9D%8F%E6%83%85%E5%86%B5"><span class="nav-number">29.4.</span> <span class="nav-text">最坏情况</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BF%AB%E9%80%9F%E9%80%89%E6%8B%A9"><span class="nav-number">30.</span> <span class="nav-text">快速选择</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E7%BB%93%E7%82%B9%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="nav-number">31.</span> <span class="nav-text">基于结点的数据结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%93%BE%E8%A1%A8"><span class="nav-number">32.</span> <span class="nav-text">链表</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E9%93%BE%E8%A1%A8"><span class="nav-number">32.1.</span> <span class="nav-text">实现一个链表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%93%BE%E8%A1%A8%E7%9A%84%E8%AF%BB%E5%8F%96"><span class="nav-number">32.2.</span> <span class="nav-text">链表的读取</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%93%BE%E8%A1%A8%E7%9A%84%E6%9F%A5%E6%89%BE"><span class="nav-number">32.3.</span> <span class="nav-text">链表的查找</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%93%BE%E8%A1%A8%E7%9A%84%E6%8F%92%E5%85%A5"><span class="nav-number">32.4.</span> <span class="nav-text">链表的插入</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%93%BE%E8%A1%A8%E7%9A%84%E5%88%A0%E9%99%A4"><span class="nav-number">32.5.</span> <span class="nav-text">链表的删除</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%93%BE%E8%A1%A8%E5%AE%9E%E6%88%98"><span class="nav-number">32.6.</span> <span class="nav-text">链表实战</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%8C%E5%90%91%E9%93%BE%E8%A1%A8"><span class="nav-number">33.</span> <span class="nav-text">双向链表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%A9%E4%B8%80%E5%88%87%E6%93%8D%E4%BD%9C%E9%83%BD%E6%9B%B4%E5%BF%AB%E7%9A%84%E4%BA%8C%E5%8F%89%E6%A0%91"><span class="nav-number">34.</span> <span class="nav-text">让一切操作都更快的二叉树</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E5%8F%89%E6%A0%91"><span class="nav-number">35.</span> <span class="nav-text">二叉树</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%9F%A5%E6%89%BE"><span class="nav-number">35.1.</span> <span class="nav-text">二叉树的查找</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%8F%92%E5%85%A5"><span class="nav-number">35.2.</span> <span class="nav-text">二叉树的插入</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%88%A0%E9%99%A4"><span class="nav-number">35.3.</span> <span class="nav-text">二叉树的删除</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%8C%E5%8F%89%E6%A0%91%E5%AE%9E%E6%88%98"><span class="nav-number">35.4.</span> <span class="nav-text">二叉树实战</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%BE"><span class="nav-number">36.</span> <span class="nav-text">图</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B9%BF%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2"><span class="nav-number">36.1.</span> <span class="nav-text">广度优先搜索</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8A%A0%E6%9D%83%E5%9B%BE"><span class="nav-number">36.2.</span> <span class="nav-text">加权图</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Dijkstra%E7%AE%97%E6%B3%95"><span class="nav-number">36.3.</span> <span class="nav-text">Dijkstra算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9B%BE%E5%AE%9E%E6%88%98"><span class="nav-number">36.4.</span> <span class="nav-text">图实战</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%B9%E4%BB%98%E7%A9%BA%E9%97%B4%E9%99%90%E5%88%B6"><span class="nav-number">37.</span> <span class="nav-text">对付空间限制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8F%8F%E8%BF%B0%E7%A9%BA%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6%E7%9A%84%E5%A4%A7O%E8%AE%B0%E6%B3%95"><span class="nav-number">38.</span> <span class="nav-text">描述空间复杂度的大O记法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%97%B6%E9%97%B4%E5%92%8C%E7%A9%BA%E9%97%B4%E4%B9%8B%E9%97%B4%E7%9A%84%E6%9D%83%E8%A1%A1"><span class="nav-number">39.</span> <span class="nav-text">时间和空间之间的权衡</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%99%E5%9C%A8%E6%9C%80%E5%90%8E%E7%9A%84%E8%AF%9D"><span class="nav-number">40.</span> <span class="nav-text">写在最后的话</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -202,102 +212,10 @@
 </noscript>
 
 
-    <div class="main-inner index posts-expand">
+    <div class="main-inner post posts-expand">
 
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2020/12/26/hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="ifcalm">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="缘起">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2020/12/26/hello-world/" class="post-title-link" itemprop="url">开张了...</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2020-12-26 11:38:15" itemprop="dateCreated datePublished" datetime="2020-12-26T11:38:15+08:00">2020-12-26</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2020-12-27 12:49:46" itemprop="dateModified" datetime="2020-12-27T12:49:46+08:00">2020-12-27</time>
-      </span>
 
   
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>119</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>欢迎来到我的Blog</p>
-<h2 id="测试以下"><a href="#测试以下" class="headerlink" title="测试以下"></a>测试以下</h2><h3 id="如何开始呢"><a href="#如何开始呢" class="headerlink" title="如何开始呢"></a>如何开始呢</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-<p>更多信息</p>
-<h3 id="运行服务"><a href="#运行服务" class="headerlink" title="运行服务"></a>运行服务</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>更多信息</p>
-<h3 id="生成静态文件"><a href="#生成静态文件" class="headerlink" title="生成静态文件"></a>生成静态文件</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>更多信息</p>
-<h3 id="发布远程站点"><a href="#发布远程站点" class="headerlink" title="发布远程站点"></a>发布远程站点</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>更多信息</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
 
 
 <div class="post-block">
@@ -317,9 +235,9 @@
       <meta itemprop="name" content="缘起">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2019/10/08/base-data-struct/" class="post-title-link" itemprop="url">基础数据结构及算法优化</a>
-        </h2>
+        <h1 class="post-title" itemprop="name headline">
+          基础数据结构及算法优化
+        </h1>
 
         <div class="post-meta-container">
           <div class="post-meta">
@@ -340,6 +258,13 @@
       </span>
 
   
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
     <span class="post-meta-item" title="本文字数">
       <span class="post-meta-item-icon">
         <i class="far fa-file-word"></i>
@@ -363,7 +288,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h3 id="数据结构为何重要"><a href="#数据结构为何重要" class="headerlink" title="数据结构为何重要"></a>数据结构为何重要</h3><p>哪怕只写过几行代码的人都会发现，编程基本上就是在跟数据打交道。计算机程序总是在接收数据、操作数据或返回数据</p>
+        <h3 id="数据结构为何重要"><a href="#数据结构为何重要" class="headerlink" title="数据结构为何重要"></a>数据结构为何重要</h3><p>哪怕只写过几行代码的人都会发现，编程基本上就是在跟数据打交道。计算机程序总是在接收数据、操作数据或返回数据</p>
 <p><strong>数据结构</strong>则是指数据的组织形式</p>
 <p><strong>数据结构</strong>不只是用于组织数据，它还极大地影响着代码的运行速度。因为数据结构不同，程序的运行速度可能相差多个数量级。如果你写的程序要处理大量的数据，或者要让数千人同时使用，那么你采用何种数据结构，将决定它是能够运行，还是会因为不堪重负而崩溃</p>
 <p>一旦对各种数据结构有了深刻的理解，并明白它们对程序性能方面的影响，你就能写出快速而优雅的代码，从而使软件运行得快速且流畅。当然，你的编程技能也会更上一层楼</p>
@@ -814,7 +739,6 @@
 <p>因此，你最好时刻配备<strong>性能测试工具</strong>来验证你的调优是否有效。测量代码速度和内存消耗的优秀工具有很多。本书的知识只告诉你调优的方向，而测试工具会负责检验你调优的具体实现是否正确</p>
 <p>我希望你能明白一个道理：<strong>很多看似复杂、深奥的事物，其实都是由你所掌握的简单概念构筑而成的。不要因为某些资料没解释到位，就以为它很困难而被吓退，你一定能找到更详尽的解释资料</strong></p>
 
-      
     </div>
 
     
@@ -822,100 +746,30 @@
     
 
     <footer class="post-footer">
-        <div class="post-eof"></div>
-      
+          <div class="post-tags">
+              <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag"># 数据结构</a>
+              <a href="/tags/%E7%AE%97%E6%B3%95/" rel="tag"># 算法</a>
+              <a href="/tags/%E7%AE%97%E6%B3%95%E4%BC%98%E5%8C%96/" rel="tag"># 算法优化</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2018/12/26/first/" rel="prev" title="first">
+                  <i class="fa fa-chevron-left"></i> first
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/12/26/hello-world/" rel="next" title="开张了...">
+                  开张了... <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
     </footer>
   </article>
 </div>
 
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2018/12/26/first/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="ifcalm">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="缘起">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2018/12/26/first/" class="post-title-link" itemprop="url">first</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2018-12-26 13:07:42" itemprop="dateCreated datePublished" datetime="2018-12-26T13:07:42+08:00">2018-12-26</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2020-12-26 13:09:05" itemprop="dateModified" datetime="2020-12-26T13:09:05+08:00">2020-12-26</time>
-      </span>
-
-  
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>20</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2 id="Golang-的那些事"><a href="#Golang-的那些事" class="headerlink" title="Golang 的那些事"></a>Golang 的那些事</h2><ul>
-<li>语法简单</li>
-<li>自举</li>
-<li>支持并发</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
 
 
 
