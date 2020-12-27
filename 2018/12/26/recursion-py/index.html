@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.1/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","version":"8.1.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}};
+  </script>
+<meta name="description" content="动态规划只能应用于有最优子结构的问题. 最优子结构的意思是局部最优解能决定全局最优解, 简单地说, 题能够分解成子问题来解决">
+<meta property="og:type" content="article">
+<meta property="og:title" content="动态规划- Python代码实现">
+<meta property="og:url" content="http://example.com/2018/12/26/recursion-py/index.html">
+<meta property="og:site_name" content="缘起">
+<meta property="og:description" content="动态规划只能应用于有最优子结构的问题. 最优子结构的意思是局部最优解能决定全局最优解, 简单地说, 题能够分解成子问题来解决">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2018-12-26T05:07:42.000Z">
+<meta property="article:modified_time" content="2020-12-27T06:38:41.798Z">
+<meta property="article:author" content="ifcalm">
+<meta property="article:tag" content="算法">
+<meta property="article:tag" content="动态规划">
+<meta property="article:tag" content="Python">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2018/12/26/recursion-py/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+<title>动态规划- Python代码实现 | 缘起</title>
+  
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">缘起</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92"><span class="nav-number">1.</span> <span class="nav-text">动态规划</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%87%A0%E4%B8%AA%E9%87%8D%E8%A6%81%E6%80%9D%E6%83%B3"><span class="nav-number">1.1.</span> <span class="nav-text">几个重要思想</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E9%80%92%E5%BD%92"><span class="nav-number">2.</span> <span class="nav-text">什么是递归</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%92%E5%BD%92%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="nav-number">2.1.</span> <span class="nav-text">递归的定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%92%E5%BD%92%E6%8A%80%E6%9C%AF%E5%9C%A8%E5%BE%88%E5%A4%9A%E7%AE%97%E6%B3%95%E4%B8%AD%E5%AD%98%E5%9C%A8"><span class="nav-number">2.2.</span> <span class="nav-text">递归技术在很多算法中存在</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%92%E5%BD%92%E5%AE%9E%E7%8E%B0%E6%96%90%E6%B3%A2%E6%8B%89%E5%A5%91%E6%95%B0%E5%88%97"><span class="nav-number">2.3.</span> <span class="nav-text">递归实现斐波拉契数列</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE"><span class="nav-number">2.4.</span> <span class="nav-text">二分查找</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B1%89%E8%AF%BA%E5%A1%94%E5%AE%9E%E7%8E%B0"><span class="nav-number">2.5.</span> <span class="nav-text">汉诺塔实现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%92%E5%BD%92%E6%80%BB%E7%BB%93"><span class="nav-number">2.6.</span> <span class="nav-text">递归总结</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%9E%E6%BA%AF%E6%B3%95"><span class="nav-number">3.</span> <span class="nav-text">回溯法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%AB%E7%9A%87%E5%90%8E%E9%97%AE%E9%A2%98"><span class="nav-number">3.1.</span> <span class="nav-text">八皇后问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%A8%E6%8E%92%E5%88%97%E9%97%AE%E9%A2%98"><span class="nav-number">3.2.</span> <span class="nav-text">全排列问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%95%B4%E6%95%B0%E6%8B%86%E5%88%86"><span class="nav-number">3.3.</span> <span class="nav-text">整数拆分</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92-1"><span class="nav-number">4.</span> <span class="nav-text">动态规划</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AE%B0%E5%BF%86-%E6%90%9C%E7%B4%A2%E7%AE%97%E6%B3%95"><span class="nav-number">4.1.</span> <span class="nav-text">记忆+搜索算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%9A%E9%98%B6%E6%AE%B5%E5%86%B3%E7%AD%96"><span class="nav-number">4.2.</span> <span class="nav-text">多阶段决策</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E7%AE%80%E4%BB%8B"><span class="nav-number">4.3.</span> <span class="nav-text">动态规划简介</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E7%89%B9%E7%82%B9"><span class="nav-number">4.4.</span> <span class="nav-text">动态规划特点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%95%B0%E5%AD%97%E9%87%91%E5%AD%97%E5%A1%94%E9%97%AE%E9%A2%98"><span class="nav-number">4.5.</span> <span class="nav-text">数字金字塔问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E5%9B%9E%E6%BA%AF%E6%B3%95%E6%89%BE%E5%87%BA%E6%89%80%E6%9C%89%E7%9A%84%E8%A7%A3%E5%B9%B6%E4%BB%8E%E4%B8%AD%E9%80%89%E5%87%BA%E6%9C%80%E4%BC%98%E8%A7%A3"><span class="nav-number">4.6.</span> <span class="nav-text">使用回溯法找出所有的解并从中选出最优解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E5%86%B3%E7%AD%96%E6%89%BE%E5%87%BA%E6%9C%80%E5%A4%A7%E5%80%BC"><span class="nav-number">4.7.</span> <span class="nav-text">使用决策找出最大值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-%E8%AE%B0%E5%BF%86-%E6%90%9C%E7%B4%A2-%E5%86%B3%E7%AD%96-%E6%96%B9%E5%BC%8F"><span class="nav-number">4.8.</span> <span class="nav-text">使用 记忆+搜索+决策 方式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E5%AE%9E%E7%8E%B0"><span class="nav-number">4.9.</span> <span class="nav-text">使用动态规划实现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E7%AE%80%E5%8C%96%E5%86%99%E6%B3%95"><span class="nav-number">4.10.</span> <span class="nav-text">使用动态规划简化写法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E7%9A%84%E5%87%A0%E4%B8%AA%E7%89%B9%E7%82%B9"><span class="nav-number">4.11.</span> <span class="nav-text">动态规划的几个特点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E9%97%AE%E9%A2%98%E6%B1%82%E8%A7%A3%E6%AD%A5%E9%AA%A4"><span class="nav-number">4.12.</span> <span class="nav-text">动态规划问题求解步骤</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E7%9A%84%E4%B8%89%E4%B8%AA%E9%87%8D%E8%A6%81%E5%9B%A0%E7%B4%A0"><span class="nav-number">4.13.</span> <span class="nav-text">动态规划的三个重要因素</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">ifcalm</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">3</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2018/12/26/recursion-py/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="ifcalm">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="缘起">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          动态规划- Python代码实现
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-12-26 13:07:42" itemprop="dateCreated datePublished" datetime="2018-12-26T13:07:42+08:00">2018-12-26</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2020-12-27 14:38:41" itemprop="dateModified" datetime="2020-12-27T14:38:41+08:00">2020-12-27</time>
+      </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>9k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>8 分钟</span>
+    </span>
+</div>
+
+            <div class="post-description">动态规划只能应用于有最优子结构的问题. 最优子结构的意思是局部最优解能决定全局最优解, 简单地说, 题能够分解成子问题来解决</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h3 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h3><h4 id="几个重要思想"><a href="#几个重要思想" class="headerlink" title="几个重要思想"></a>几个重要思想</h4><ul>
+<li>递归</li>
+<li>回溯法</li>
+<li>动态规划</li>
+</ul>
+<hr>
+<h3 id="什么是递归"><a href="#什么是递归" class="headerlink" title="什么是递归"></a>什么是递归</h3><h4 id="递归的定义"><a href="#递归的定义" class="headerlink" title="递归的定义"></a>递归的定义</h4><p>函数内部调用函数本身</p>
+<h4 id="递归技术在很多算法中存在"><a href="#递归技术在很多算法中存在" class="headerlink" title="递归技术在很多算法中存在"></a>递归技术在很多算法中存在</h4><ul>
+<li>回溯法</li>
+<li>分治法</li>
+<li>动态规划</li>
+</ul>
+<p>递归分为两个过程:<strong>递</strong> 和 <strong>归</strong>, 这两个都是自动完成的</p>
+<p>递归一定要有终止条件, 无限递归会发生栈溢出</p>
+<h4 id="递归实现斐波拉契数列"><a href="#递归实现斐波拉契数列" class="headerlink" title="递归实现斐波拉契数列"></a>递归实现斐波拉契数列</h4><p>指的是这样一个数列: <code>1 1 2 3 5 8 13 21 34 ...</code>, 后面的数都等于前面两个数的和</p>
+<p>递归代码实现:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">def fib(k):</span><br><span class="line">    if k in [1, 2]:</span><br><span class="line">        return 1</span><br><span class="line">    return fib(k-1) + fib(k-2)</span><br></pre></td></tr></table></figure>
+<p>通过非递归代码实现:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">def fib_fdg(k):</span><br><span class="line">    assert k &gt; 0, &quot;k &gt; 0&quot;</span><br><span class="line">    if k in [1, 2]:</span><br><span class="line">        return 1</span><br><span class="line">    k_1 &#x3D; 1</span><br><span class="line">    k_2 &#x3D; 1</span><br><span class="line">    for i in range(3, k+1):</span><br><span class="line">        tmp &#x3D; k_1</span><br><span class="line">        k_1 &#x3D; k_1 + k_2</span><br><span class="line">        k_2 &#x3D; tmp</span><br><span class="line">    return k_1</span><br></pre></td></tr></table></figure>
+<p><strong>递归内部执行重复量是非常大的，很多计算是重复的</strong></p>
+<h4 id="二分查找"><a href="#二分查找" class="headerlink" title="二分查找"></a>二分查找</h4><ol>
+<li>二分查找，也叫折半查找</li>
+<li>二分查找针对有序数组</li>
+<li>算法很多时候考察的是对边界的了解</li>
+</ol>
+<p>非递归代码实现:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">def search(data_list, target):</span><br><span class="line">    left &#x3D; 0</span><br><span class="line">    right &#x3D; len(data_list) - 1</span><br><span class="line">    while left &lt;&#x3D; right:</span><br><span class="line">        # 找到 [left, right] 中间的值</span><br><span class="line">        mid &#x3D; int((left+right)&#x2F;2)</span><br><span class="line">        # 判断中间值与目标值的大小</span><br><span class="line">        if data_list[mid] &#x3D;&#x3D; target:</span><br><span class="line">            print(&quot;select ok: &#123;&#125;&quot;.format(mid))</span><br><span class="line">            break</span><br><span class="line">        elif data_list[mid] &lt; target:</span><br><span class="line">            # 如果中间值小于目标值，则在右侧继续二分查找</span><br><span class="line">            left &#x3D; mid + 1</span><br><span class="line">        else:</span><br><span class="line">            # 如果中间值大于目标值，则在左侧继续二分查找</span><br><span class="line">            right &#x3D; mid - 1</span><br></pre></td></tr></table></figure>
+<p>递归实现二分查找:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">def dg_search(left, right, data_list, target):</span><br><span class="line">    if left &gt; right:</span><br><span class="line">        return -1</span><br><span class="line">    mid &#x3D; int((left + right) &#x2F; 2)</span><br><span class="line">    if data_list[mid] &#x3D;&#x3D; target:</span><br><span class="line">        return mid</span><br><span class="line">    elif data_list[mid] &lt; target:</span><br><span class="line">        # 在右侧继续递归查找</span><br><span class="line">        return dg_search(mid+1, right, data_list, target)</span><br><span class="line">    else:</span><br><span class="line">        # 在左侧继续递归查找</span><br><span class="line">        return dg_search(left, mid-1, data_list, target)</span><br></pre></td></tr></table></figure>
+<h4 id="汉诺塔实现"><a href="#汉诺塔实现" class="headerlink" title="汉诺塔实现"></a>汉诺塔实现</h4><p><strong>递归是一个栈的调用过程，先进后出</strong></p>
+<p>阶乘递归实现:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">def jc(n):</span><br><span class="line">    if n &#x3D;&#x3D; 1:</span><br><span class="line">        return 1</span><br><span class="line">    else:</span><br><span class="line">        return n*jc(n-1)</span><br></pre></td></tr></table></figure>
+<p>汉诺塔递归实现:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">def move(index, start, mid, end):</span><br><span class="line">    if index &#x3D;&#x3D; 1:</span><br><span class="line">        print(&quot;&#123;&#125;--&gt;&#123;&#125;&quot;.format(start, end))</span><br><span class="line">        return</span><br><span class="line">    else:</span><br><span class="line">        move(index-1, start, end, mid)</span><br><span class="line">        print(&quot;&#123;&#125;--&gt;&#123;&#125;&quot;.format(start, end))</span><br><span class="line">        move(index-1, mid, start, end)</span><br><span class="line"></span><br><span class="line">if __name__ &#x3D;&#x3D; &quot;__main__&quot;:</span><br><span class="line">    move(3, &quot;A&quot;, &quot;B&quot;, &quot;C&quot;)</span><br></pre></td></tr></table></figure>
+<h4 id="递归总结"><a href="#递归总结" class="headerlink" title="递归总结"></a>递归总结</h4><ul>
+<li>写法简单</li>
+<li>递归都能通过非递归的方法实现</li>
+<li>递归由于是函数调用自身，而函数调用是有时间和空间的消耗，每一次函数调用，都需要在内存中分配空间来保存参数，返回地址以及临时变量，而往栈中压入数据和弹出数据都需要时间，所以效率不高</li>
+<li>递归很多计算都是重复的，由于其本质是把一个问题分解成两个或多个小问题，多个小问题存在互相重叠的部分，则存在重复计算</li>
+<li>调用栈可能会溢出，每一次函数调用会在内存栈中分配空间，而每个进程的栈容量是有限的，当调用的层次太多时，就会超出栈的容量，导致栈溢出</li>
+</ul>
+<hr>
+<h3 id="回溯法"><a href="#回溯法" class="headerlink" title="回溯法"></a>回溯法</h3><p>回溯法采用试错的思想，它尝试分步的去解决一个问题。在分步解决问题的过程中，当它通过尝试发现现有的分步答案不能得到有效的正确的解答的时候，它将取消上一步甚至是上几步的计算，再通过其它的可能的分步解答再次尝试寻找问题的答案。回溯法通常用最简单的递归方法来实现，在反复重复上述的步骤后可能出现两种情况:</p>
+<ul>
+<li>找到一个可能存在的正确的答案</li>
+<li>在尝试了所有可能的分步方法后宣告该问题没有答案</li>
+</ul>
+<p><strong>回溯法就是尝试所以的可能</strong>, 适合求解 <code>枚举问题的所有可能的答案</code> 的问题</p>
+<p>回溯法是暴搜法的一种，用来枚举所有满足某约束条件的候选解</p>
+<p>回溯法的重点在于由候选解的一部分就可以提早判断所延伸出来的完整解是否可能符合约束条件，进而提早结束某些可能的尝试，减少多余的搜寻尝试时间</p>
+<h4 id="八皇后问题"><a href="#八皇后问题" class="headerlink" title="八皇后问题"></a>八皇后问题</h4><p>八皇后问题是一个以国际象棋为背景的问题：如何能够在8×8的国际象棋棋盘上放置八个皇后，使得任何一个皇后都无法直接吃掉其他的皇后？为了达到此目的，任两个皇后都不能处于同一条横行、纵行或斜线上</p>
+<p>代码实现:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line">board &#x3D; [</span><br><span class="line">    [0,0,0,0,0,0,0,0],</span><br><span class="line">    [0,0,0,0,0,0,0,0],</span><br><span class="line">    [0,0,0,0,0,0,0,0],</span><br><span class="line">    [0,0,0,0,0,0,0,0],</span><br><span class="line">    [0,0,0,0,0,0,0,0],</span><br><span class="line">    [0,0,0,0,0,0,0,0],</span><br><span class="line">    [0,0,0,0,0,0,0,0],</span><br><span class="line">    [0,0,0,0,0,0,0,0]</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line">total &#x3D; 0</span><br><span class="line"></span><br><span class="line"># 判断(x ,y) 位置能否放置皇后</span><br><span class="line">def can_plane(x, y):</span><br><span class="line">    # 判断 x 行是否有皇后</span><br><span class="line">    for i in range(0, y):</span><br><span class="line">        if board[x][i] &#x3D;&#x3D; 1:</span><br><span class="line">            return False</span><br><span class="line">    # 判断 y 列是否有皇后</span><br><span class="line">    for i in range(0, x):</span><br><span class="line">        if board[i][y] &#x3D;&#x3D; 1:</span><br><span class="line">            return False</span><br><span class="line">    # 判断斜线上是否有皇后</span><br><span class="line">    for i in range(0, x):</span><br><span class="line">        if x+y-i &lt;&#x3D; 7:</span><br><span class="line">            if board[i][x+y-i] &#x3D;&#x3D; 1:</span><br><span class="line">                return False</span><br><span class="line">    # 判断反斜线上是否有皇后</span><br><span class="line">    for index, i in enumerate(range(x-1, -1, -1)):</span><br><span class="line">        s_y &#x3D; y-(index+1)</span><br><span class="line">        if s_y &gt;&#x3D; 0:</span><br><span class="line">            if board[i][s_y] &#x3D;&#x3D; 1:</span><br><span class="line">                return False</span><br><span class="line"></span><br><span class="line">    return True</span><br><span class="line"></span><br><span class="line">def put_queen(step):</span><br><span class="line">    if step &#x3D;&#x3D; 8:</span><br><span class="line">        print_board()</span><br><span class="line">        global total</span><br><span class="line">        total +&#x3D; 1</span><br><span class="line"></span><br><span class="line">        print(&quot;-------------&quot;)</span><br><span class="line">    else:</span><br><span class="line">        for i in range(8):</span><br><span class="line">            # 判断该位置能否放置皇后</span><br><span class="line">            if can_plane(step, i):</span><br><span class="line">                # 设置现场</span><br><span class="line">                board[step][i] &#x3D; 1</span><br><span class="line">                # 开始递归</span><br><span class="line">                put_queen(step+1)</span><br><span class="line">                # 恢复现场</span><br><span class="line">                board[step][i] &#x3D; 0</span><br><span class="line"></span><br><span class="line"># 打印棋盘</span><br><span class="line">def print_board():</span><br><span class="line">    for i in range(8):</span><br><span class="line">        for j in range(8):</span><br><span class="line">            if board[i][j] &#x3D;&#x3D; 0:</span><br><span class="line">                print(&quot;□ &quot;, end&#x3D;&quot;&quot;)</span><br><span class="line">            else:</span><br><span class="line">                print(&quot;■ &quot;, end&#x3D;&quot;&quot;)</span><br><span class="line">        print()</span><br><span class="line"></span><br><span class="line">if __name__ &#x3D;&#x3D; &quot;__main__&quot;:</span><br><span class="line">    put_queen(0)</span><br><span class="line">    print(&quot;总共有&#123;&#125;&quot;.format(total))</span><br></pre></td></tr></table></figure>
+<h4 id="全排列问题"><a href="#全排列问题" class="headerlink" title="全排列问题"></a>全排列问题</h4><p>全排列的生成算法方法是将给定的序列中所有可能的全排列无重复无遗漏地枚举出来。此处全排列的定义是：从n个元素中取出m个元素进行排列，当<code>n=m</code>时这个排列被称为全排列</p>
+<p>代码实现:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">data_list &#x3D; [1, 2, 3, 4]</span><br><span class="line">arranges &#x3D; []</span><br><span class="line">total &#x3D; 0</span><br><span class="line"></span><br><span class="line">def search(depth, datas):</span><br><span class="line">    if depth &#x3D;&#x3D; len(data_list)+1:</span><br><span class="line">        print(arranges)</span><br><span class="line">        global total</span><br><span class="line">        total +&#x3D; 1</span><br><span class="line">    else:</span><br><span class="line">        for data in datas:</span><br><span class="line">            # 设置现场</span><br><span class="line">            arranges.append(data)</span><br><span class="line">            # 递归</span><br><span class="line">            next_datas &#x3D; datas[:]</span><br><span class="line">            next_datas.remove(data)</span><br><span class="line">            search(depth+1, next_datas)</span><br><span class="line">            # 恢复现场</span><br><span class="line">            arranges.pop()</span><br><span class="line"></span><br><span class="line">if __name__ &#x3D;&#x3D; &quot;__main__&quot;:</span><br><span class="line">    search(1, data_list)</span><br><span class="line">    print(&quot;&#123;&#125;排列方式&quot;.format(total))</span><br></pre></td></tr></table></figure>
+<h4 id="整数拆分"><a href="#整数拆分" class="headerlink" title="整数拆分"></a>整数拆分</h4><p>一个正整数可以写成一些正整数的和，4可以用5种方法写成和式：<code>4, 3+1, 2+2, 2+1+1, 1+1+1+1</code>。因此 <code>p(4)=5</code></p>
+<p>代码实现:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">num &#x3D; 7</span><br><span class="line">datas &#x3D; []</span><br><span class="line"></span><br><span class="line">def search(rest):</span><br><span class="line">    if rest &lt;&#x3D; 0:</span><br><span class="line">        print(datas)</span><br><span class="line">    else:</span><br><span class="line">        for i in range(1, rest+1):</span><br><span class="line">            # 设置现场</span><br><span class="line">            datas.append(i)</span><br><span class="line">            # 递归</span><br><span class="line">            search(rest-i)</span><br><span class="line">            # 恢复现场</span><br><span class="line">            datas.pop()</span><br><span class="line"></span><br><span class="line">search(num)</span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="动态规划-1"><a href="#动态规划-1" class="headerlink" title="动态规划"></a>动态规划</h3><h4 id="记忆-搜索算法"><a href="#记忆-搜索算法" class="headerlink" title="记忆+搜索算法"></a>记忆+搜索算法</h4><p>还是斐波拉契数列，我们采用 <strong>记忆 + 搜素</strong> 的模式，可以把时间降低很多</p>
+<p><strong>在递归的过程中，会存在很多的重复计算，此时，我们可以把计算过的值存储在一个字典表里，下次递归的时候先去查询字典表中是否存在该值，若存在，则直接取用，不在进行重复计算</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">from collections import defaultdict</span><br><span class="line">total &#x3D; defaultdict(int)</span><br><span class="line"></span><br><span class="line">def fib(k):</span><br><span class="line">    assert k &gt; 0, &quot;k &gt; 0&quot;</span><br><span class="line">    if k in [1, 2]:</span><br><span class="line">        return 1</span><br><span class="line">    global total</span><br><span class="line">    </span><br><span class="line">    # 搜索该值是否被记忆过，若记录过，则直接返回，减少重复计算</span><br><span class="line">    if k in total:</span><br><span class="line">        result &#x3D; total[k]</span><br><span class="line">    else:</span><br><span class="line">        result &#x3D; fib(k-1) + fib(k-2)</span><br><span class="line">        total[k] &#x3D; result</span><br><span class="line">    return result</span><br><span class="line"></span><br><span class="line">if __name__ &#x3D;&#x3D; &quot;__main__&quot;:</span><br><span class="line">    # 搜索 + 记忆 算法</span><br><span class="line">    from datetime import datetime</span><br><span class="line">    start_time &#x3D; datetime.now()</span><br><span class="line">    print(fib(50))</span><br><span class="line">    print(&quot;递归耗时: &#123;&#125;&quot;.format((datetime.now()-start_time).total_seconds()))</span><br></pre></td></tr></table></figure>
+<h4 id="多阶段决策"><a href="#多阶段决策" class="headerlink" title="多阶段决策"></a>多阶段决策</h4><ul>
+<li>根据过程的特性可以将过程按空间，时间等标志分为若干个互相联系又互相区别的阶段</li>
+<li>在每个阶段都需要做出决策，从而使整个过程达到最好的效果</li>
+<li>各个阶段决策的选取不是任意确定的，它依赖于当前面临的状态，又影响以后的发展</li>
+<li>当各个阶段的决策确定后，就组成了一个决策序列，因而也就决定了整个过程的一条活动路线，这样的一个前后关联具有链状结构的多阶段过程就称为多阶段决策问题</li>
+</ul>
+<h4 id="动态规划简介"><a href="#动态规划简介" class="headerlink" title="动态规划简介"></a>动态规划简介</h4><ul>
+<li>对最佳路径（最佳决策过程）所经过的各个阶段，其中每个阶段始点到全过程终点的路径，必定是该阶段始点到全过程终点的一切路径中的最佳路径（最优决策）</li>
+<li>简言之，一个最优策略的子策略必然也是最优的</li>
+</ul>
+<p><strong>把多阶段决策问题转化为一系列单阶段最优化问题，从而逐个求解</strong></p>
+<p>动态规划方法的关键：<strong>在于正确地写出基本的递推关系式和恰当的边界条件</strong></p>
+<p>要做到这一点，就必须将问题的过程分成几个相互联系的阶段，恰当的选取<strong>状态变量和决策变量以及定义最优值函数</strong>，从而把一个大问题转化成一组同类型的子问题，然后逐个求解</p>
+<p>即从边界条件开始，逐段递推寻优，在每一个子问题的求解中，均利用它前面的子问题的最优化结果，依此进行，最后一个子问题所得的最优解，就是整个问题的最优解</p>
+<h4 id="动态规划特点"><a href="#动态规划特点" class="headerlink" title="动态规划特点"></a>动态规划特点</h4><p><strong>每个阶段的最优决策过程只与本阶段的初始状态有关</strong>，而与以前各阶段的决策无关，换言之，本阶段之前的状态与决策，只是通过在本阶段所处的初始状态来影响本阶段及以后各个阶段的决策。<br>具有这种性质的状态称为 <strong>无后效性状态</strong></p>
+<p><strong>动态规划方法只适用于求解具有无后效性状态的多阶段决策问题</strong></p>
+<h4 id="数字金字塔问题"><a href="#数字金字塔问题" class="headerlink" title="数字金字塔问题"></a>数字金字塔问题</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[13],</span><br><span class="line">[11, 8],</span><br><span class="line">[12, 7, 26],</span><br><span class="line">[6, 14, 15, 8],</span><br><span class="line">[12, 17, 13, 24, 11]</span><br></pre></td></tr></table></figure>
+<p>从上到下找一条路径，使数字的和达到最大</p>
+<h4 id="使用回溯法找出所有的解并从中选出最优解"><a href="#使用回溯法找出所有的解并从中选出最优解" class="headerlink" title="使用回溯法找出所有的解并从中选出最优解"></a>使用回溯法找出所有的解并从中选出最优解</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">数字金字塔问题</span><br><span class="line"></span><br><span class="line"># 定义一个数字金字塔</span><br><span class="line">pyramid &#x3D; [</span><br><span class="line">    [13],</span><br><span class="line">    [11, 8],</span><br><span class="line">    [12, 7, 26],</span><br><span class="line">    [6, 14, 15, 8],</span><br><span class="line">    [12, 17, 13, 24, 11]</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line">datas &#x3D; [13]</span><br><span class="line">total_path &#x3D; []</span><br><span class="line">def search(depth, x, y):</span><br><span class="line">    if depth &#x3D;&#x3D; 5:</span><br><span class="line">        total_path.append(datas[:])</span><br><span class="line">    else:</span><br><span class="line">        # 1.选择正下方的值</span><br><span class="line"></span><br><span class="line">        # 设置现场</span><br><span class="line">        datas.append(pyramid[depth][y])</span><br><span class="line">        # 递归</span><br><span class="line">        search(depth+1, x+1, y)</span><br><span class="line">        # 恢复现场</span><br><span class="line">        datas.pop()</span><br><span class="line"></span><br><span class="line">        # 2.选择右下方的值</span><br><span class="line">        # 设置现场</span><br><span class="line">        datas.append(pyramid[depth][y+1])</span><br><span class="line">        # 递归</span><br><span class="line">        search(depth+1, x+1, y+1)</span><br><span class="line">        # 恢复现场</span><br><span class="line">        datas.pop()</span><br><span class="line"></span><br><span class="line">if __name__ &#x3D;&#x3D; &quot;__main__&quot;:</span><br><span class="line">    search(1, 0, 0)</span><br><span class="line">    max &#x3D; 0</span><br><span class="line">    max_pos &#x3D; 0</span><br><span class="line">    for index, data in enumerate(total_path):</span><br><span class="line">        if sum(data) &gt; max:</span><br><span class="line">            max &#x3D; sum(data)</span><br><span class="line">            max_pos &#x3D; index</span><br><span class="line"></span><br><span class="line">    print(total_path[max_pos])</span><br></pre></td></tr></table></figure>
+
+<h4 id="使用决策找出最大值"><a href="#使用决策找出最大值" class="headerlink" title="使用决策找出最大值"></a>使用决策找出最大值</h4><p><strong>用到了递归的方法，自上向下求解</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"># 数字金字塔问题</span><br><span class="line"></span><br><span class="line"># 定义一个数字金字塔</span><br><span class="line">pyramid &#x3D; [</span><br><span class="line">    [13],</span><br><span class="line">    [11, 8],</span><br><span class="line">    [12, 7, 26],</span><br><span class="line">    [6, 14, 15, 8],</span><br><span class="line">    [12, 17, 13, 24, 11]</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line">max_value &#x3D; 0</span><br><span class="line">def search_max(depth, y):</span><br><span class="line">    if depth &#x3D;&#x3D; 4:</span><br><span class="line">        return pyramid[depth][y]</span><br><span class="line">    # 把正下方的值交给下一个人得到最大值</span><br><span class="line">    left_max &#x3D; search_max(depth+1, y)</span><br><span class="line">    # 把右下方的值交给下一个人得到最大值</span><br><span class="line">    # 任务下分，最优子结构，决策</span><br><span class="line">    right_max &#x3D; search_max(depth+1, y+1)</span><br><span class="line"></span><br><span class="line">    # 决策，选取最大值</span><br><span class="line">    return pyramid[depth][y] + max(left_max, right_max)</span><br><span class="line"></span><br><span class="line">if __name__ &#x3D;&#x3D; &quot;__main__&quot;:</span><br><span class="line">    print(search_max(0, 0))</span><br></pre></td></tr></table></figure>
+<h4 id="使用-记忆-搜索-决策-方式"><a href="#使用-记忆-搜索-决策-方式" class="headerlink" title="使用 记忆+搜索+决策 方式"></a>使用 记忆+搜索+决策 方式</h4><p><strong>用到了递归的方法，自上向下求解</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"># 数字金字塔问题</span><br><span class="line"></span><br><span class="line"># 定义一个数字金字塔</span><br><span class="line">pyramid &#x3D; [</span><br><span class="line">    [13],</span><br><span class="line">    [11, 8],</span><br><span class="line">    [12, 7, 26],</span><br><span class="line">    [6, 14, 15, 8],</span><br><span class="line">    [12, 17, 13, 24, 11]</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line">max_value &#x3D; 0</span><br><span class="line">info &#x3D; &#123;&#125;</span><br><span class="line">def search_max(depth, y):</span><br><span class="line">    if depth &#x3D;&#x3D; 4:</span><br><span class="line">        return pyramid[depth][y]</span><br><span class="line"></span><br><span class="line">    if &quot;&#123;&#125;_&#123;&#125;&quot;.format(depth, y) in info:</span><br><span class="line">        return info[&quot;&#123;&#125;_&#123;&#125;&quot;.format(depth, y)]</span><br><span class="line">    else:</span><br><span class="line">        max_value &#x3D; pyramid[depth][y] + max(search_max(depth+1, y), search_max(depth+1, y+1))</span><br><span class="line">        info[&quot;&#123;&#125;_&#123;&#125;&quot;.format(depth, y)] &#x3D; max_value</span><br><span class="line">        return max_value</span><br><span class="line"></span><br><span class="line">if __name__ &#x3D;&#x3D; &quot;__main__&quot;:</span><br><span class="line">    print(search_max(0, 0))</span><br><span class="line">    print(info)</span><br></pre></td></tr></table></figure>
+<h4 id="使用动态规划实现"><a href="#使用动态规划实现" class="headerlink" title="使用动态规划实现"></a>使用动态规划实现</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"># 定义一个数字金字塔</span><br><span class="line">pyramid &#x3D; [</span><br><span class="line">    [13],</span><br><span class="line">    [11, 8],</span><br><span class="line">    [12, 7, 26],</span><br><span class="line">    [6, 14, 15, 8],</span><br><span class="line">    [12, 17, 13, 24, 11]</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line"># 第四层</span><br><span class="line">for i in range(4):</span><br><span class="line">    pyramid[3][i] +&#x3D; max(pyramid[4][i], pyramid[4][i+1])</span><br><span class="line">print(pyramid[3])</span><br><span class="line"></span><br><span class="line"># 第三层</span><br><span class="line">for i in range(3):</span><br><span class="line">    pyramid[2][i] +&#x3D; max(pyramid[3][i], pyramid[3][i+1])</span><br><span class="line">print(pyramid[2])</span><br><span class="line"></span><br><span class="line"># 第二层</span><br><span class="line">for i in range(2):</span><br><span class="line">    pyramid[1][i] +&#x3D; max(pyramid[2][i], pyramid[2][i+1])</span><br><span class="line">print(pyramid[1])</span><br><span class="line"></span><br><span class="line"># 第一层</span><br><span class="line">print(pyramid[0][0] + max(pyramid[1][0], pyramid[1][1]))</span><br></pre></td></tr></table></figure>
+<h4 id="使用动态规划简化写法"><a href="#使用动态规划简化写法" class="headerlink" title="使用动态规划简化写法"></a>使用动态规划简化写法</h4><p>上一个代码中的四个 for 循环可以组合成一个双重循环，写法如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"># 定义一个数字金字塔</span><br><span class="line">pyramid &#x3D; [</span><br><span class="line">    [13],</span><br><span class="line">    [11, 8],</span><br><span class="line">    [12, 7, 26],</span><br><span class="line">    [6, 14, 15, 8],</span><br><span class="line">    [12, 17, 13, 24, 11]</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line">for j in range(4, 0, -1):</span><br><span class="line">    for i in range(j):</span><br><span class="line">        pyramid[j-1][i] +&#x3D; max(pyramid[j][i], pyramid[j][i+1])</span><br><span class="line"></span><br><span class="line">print(pyramid[0])</span><br></pre></td></tr></table></figure>
+<p><strong>动态规划不使用递归，是一种自下向上的解法，先得到小问题的最优解，在利用小问题的最优解得出整体最优解</strong></p>
+<p>动态规划的过程是: 每次决策依赖于当前状态，又随即引起状态的转移。一个决策序列就是在变化的状态中产生出来的，所以这种多阶段最优化决策解决问题的过程就称为<strong>动态规划</strong></p>
+<p>基本思想: 将待求解的问题分解为若干个子问题（阶段），按顺序求解子阶段，前一子问题的解，为后一子问题的求解提供了有用的信息。在求解任一子问题时，列出各种可能的局部解，通过决策保留那些有可能达到最优的局部解，丢弃其他局部解。依次解决各子问题，最后一个子问题就是初始问题的解</p>
+<p>适合于用动态规划法求解的问题，经分解后得到的子问题往往不是互相独立的, 即下一个子阶段的求解是建立在上一个子阶段的解的基础上，进行进一步的求解</p>
+<h4 id="动态规划的几个特点"><a href="#动态规划的几个特点" class="headerlink" title="动态规划的几个特点"></a>动态规划的几个特点</h4><ul>
+<li>最优化原理: 如果问题的最优解所包含的子问题的解也是最优的，就称该问题具有最优子结构，即满足最优化原理</li>
+<li>无后效性：即某阶段状态一旦确定，就不受这个状态以后决策的影响。也就是说，某状态以后的过程不会影响以前的状态，只与当前状态有关</li>
+</ul>
+<h4 id="动态规划问题求解步骤"><a href="#动态规划问题求解步骤" class="headerlink" title="动态规划问题求解步骤"></a>动态规划问题求解步骤</h4><p>动态规划所处理的问题是一个<strong>多阶段决策问题</strong>，一般由初始状态开始，通过对中间阶段决策的选择，达到结束状态。这些决策形成了一个决策序列，同时确定了完成整个过程的一条活动路线，通常是求最优的活动路线<br><code>始状态→│决策１│→│决策２│→…→│决策ｎ│→结束状态</code></p>
+<ol>
+<li><code>划分阶段</code>: 按照问题的时间或空间特征，把问题分为若干个阶段。在划分阶段时，注意划分后的阶段一定要是有序的或者是可排序的</li>
+<li><code>确定状态和状态变量</code>: 将问题发展到各个阶段时所处于的各种客观情况用不同的状态表示出来。当然，状态的选择要满足无后效性</li>
+<li><code>确定决策并写出状态转移方程</code>: 因为决策和状态转移有着天然的联系，状态转移就是根据上一阶段的状态和决策来导出本阶段的状态。所以如果确定了决策，状态转移方程也就可写出。但事实上常常是反过来做，根据相邻两个阶段的状态之间的关系来确定决策方法和状态转移方程</li>
+<li><code>寻找边界条件</code>: 给出的状态转移方程是一个递推式，需要一个递推的终止条件或边界条件</li>
+</ol>
+<h4 id="动态规划的三个重要因素"><a href="#动态规划的三个重要因素" class="headerlink" title="动态规划的三个重要因素"></a>动态规划的三个重要因素</h4><ul>
+<li>问题的阶段</li>
+<li>每个阶段的状态</li>
+<li>从前一个阶段转化到后一个阶段之间的递推关系</li>
+</ul>
+<p><strong>递推关系必须是从次小的问题开始到较大的问题之间的转化</strong></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E7%AE%97%E6%B3%95/" rel="tag"># 算法</a>
+              <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" rel="tag"># 动态规划</a>
+              <a href="/tags/Python/" rel="tag"># Python</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+            </div>
+            <div class="post-nav-item">
+                <a href="/2019/10/08/base-data-struct/" rel="next" title="基础数据结构及算法优化">
+                  基础数据结构及算法优化 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ifcalm</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">34k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">30 分钟</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+<!-- 网站运行时间的设置 -->
+<nobr>
+  <span id="timeDate">载入天数...</span>
+  <span id="times">载入时分秒...</span>
+</nobr>
+<script>
+    var now = new Date();
+    function createtime() {
+        var grt= new Date("04/21/2020 15:54:40");//此处修改你的建站时间或者网站上线时间
+        now.setTime(now.getTime()+250);
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;}
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;}
+        document.getElementById("timeDate").innerHTML = "本站已运行 "+dnum+" 天 ";
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+    }
+setInterval("createtime()",250);
+</script>
+    </div>
+  </footer>
+
+  
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+</body>
+</html>
