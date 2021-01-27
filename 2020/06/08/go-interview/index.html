@@ -31,7 +31,7 @@
 <meta property="og:description" content="Go 是Google开发的一种静态强类型、编译型、并发型，并具有垃圾回收功能的编程语言">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-06-08T14:47:07.000Z">
-<meta property="article:modified_time" content="2021-01-22T14:59:48.505Z">
+<meta property="article:modified_time" content="2021-01-27T14:39:10.768Z">
 <meta property="article:author" content="ifcalm">
 <meta property="article:tag" content="Golang">
 <meta property="article:tag" content="面试">
@@ -254,14 +254,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>13k</span>
+      <span>14k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>12 分钟</span>
+      <span>13 分钟</span>
     </span>
 </div>
 
@@ -468,7 +468,28 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line">import (</span><br><span class="line">     &quot;fmt&quot;</span><br><span class="line">     &quot;math&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">func compute(fn func(float64, float64) float64) float64 &#123;</span><br><span class="line">     return fn(3, 4)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">     hypot :&#x3D; func(x, y float64) float64 &#123;</span><br><span class="line">         return math.Sqrt(x*x + y*y)</span><br><span class="line">     &#125;</span><br><span class="line">     fmt.Println(hypot(5, 12))</span><br><span class="line"></span><br><span class="line">     fmt.Println(compute(hypot))</span><br><span class="line">     fmt.Println(compute(math.Pow))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>Go 函数可以是一个闭包。闭包是一个函数值，它引用了其函数体之外的变量。该函数可以访问并赋予其引用的变量的值，换句话说，该函数被绑定在了这些变量上。 例如，下面函数 <code>adder</code> 返回一个闭包。每个闭包都被绑定在其各自的 <code>sum</code> 变量上</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line">import &quot;fmt&quot;</span><br><span class="line"></span><br><span class="line">func adder() func(int) int &#123;</span><br><span class="line">     sum :&#x3D; 0</span><br><span class="line">     return func(x int) int &#123;</span><br><span class="line">         sum +&#x3D; x</span><br><span class="line">         return sum</span><br><span class="line">     &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">     pos, neg :&#x3D; adder(), adder()</span><br><span class="line">     for i :&#x3D; 0; i &lt; 10; i++ &#123;</span><br><span class="line">         fmt.Println(</span><br><span class="line">             pos(i),</span><br><span class="line">             neg(-2*i),</span><br><span class="line">         )</span><br><span class="line">     &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="panic-与-revover"><a href="#panic-与-revover" class="headerlink" title="panic 与 revover"></a><code>panic</code> 与 <code>revover</code></h4><h4 id="数组与slice的区别"><a href="#数组与slice的区别" class="headerlink" title="数组与slice的区别"></a>数组与<code>slice</code>的区别</h4><h4 id="Golang-是面对对象语言吗"><a href="#Golang-是面对对象语言吗" class="headerlink" title="Golang 是面对对象语言吗"></a>Golang 是面对对象语言吗</h4><h4 id="golang-没有三元操作符"><a href="#golang-没有三元操作符" class="headerlink" title="golang 没有三元操作符 : ?"></a>golang 没有三元操作符 <code>: ?</code></h4><h4 id="new-与-make-的区别"><a href="#new-与-make-的区别" class="headerlink" title="new() 与 make() 的区别"></a><code>new()</code> 与 <code>make()</code> 的区别</h4><p><code>new</code> 只能传递一个参数，该参数为一个任意类型，可以是Go内建的类型，也可以是自定义的类型</p>
+<h4 id="panic-与-revover"><a href="#panic-与-revover" class="headerlink" title="panic 与 revover"></a><code>panic</code> 与 <code>revover</code></h4><p>编程语言一般都会有异常捕获机制</p>
+<p>只需要调用<code>panic</code> 函数，就可以触发宕机</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	panic(&quot;test&quot;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>发生异常，有时候需要捕获，Go 内建函数 <code>recover</code> 可以让程序在发送宕机后起死回生, 但是 <code>recover</code> 的使用，必须在 <code>defer</code> 函数中才能生效，其他作用域下，它是不工作的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import &quot;fmt&quot;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	testA(20)</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;如果执行到这句，说明panic被捕获了</span><br><span class="line">    &#x2F;&#x2F;后续的程序能继续运行</span><br><span class="line">	fmt.Println(&quot;It&#39;s ok&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func testA(x int) &#123;</span><br><span class="line">	defer func() &#123;</span><br><span class="line">		if err :&#x3D; recover(); err !&#x3D; nil &#123;</span><br><span class="line">			fmt.Println(err)</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;()</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;制造数组越界，触发 panic</span><br><span class="line">	var arr [10]int</span><br><span class="line">	arr[x] &#x3D; 88</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>recover()</code> 可以将捕获到的 <code>panic</code> 信息打印</p>
+<p>通常来说，不应该对进入<code>panic</code>宕机的程序做任何处理，但有时，需要我们从宕机中恢复，至少我们可以在程序崩溃前做一些操作，比如关闭所有连接，释放资源</p>
+<p>Go 的异常抛出与捕获，依赖两个内置函数：</p>
+<ul>
+<li><code>panic</code> : 抛出异常，是程序奔溃</li>
+<li><code>recover</code> : 捕获异常，恢复程序或做收尾工作</li>
+</ul>
+<h4 id="数组与slice的区别"><a href="#数组与slice的区别" class="headerlink" title="数组与slice的区别"></a>数组与<code>slice</code>的区别</h4><p>数组类型的值的长度是固定的数组的长度在声明它的时候就必须给定，并且在之后不会再改变。可以说，数组的长度是其类型的一部分，数组的容量永远等于其长度，都是不可变的</p>
+<p>切片类型的值是可变长的。而切片的类型字面量中只有其元素的类型，而没有其长度。切片的长度可以自动地随着其中元素数量的增长而增长，但不会随着元素数量的减少而减少</p>
+<p>在每一个切片的底层数据结构中，会包含一个数组，可以被叫做底层数据，而切片就是对底层数组的引用，故而切片类型属于<strong>引用类型</strong></p>
+<p>一个切片无法容纳更多的元素时，Go 语言就会想办法扩容。但它并不会改变原来的切片，而是会生成一个容量更大的切片，然后将把原有的元素和新元素一并拷贝到新切片中</p>
+<p>在一般的情况下，你可以简单地认为新切片的容量将会是原切片容量的 2 倍。<br>但是，当原切片的长度大于或等于<code>1024</code> 时，Go 语言将会以原容量的 1.25<br> 倍作为新容量的基准。新容量基准会被调整，不断地与1.25相乘，直到结果不小于原长度与要追加的元素数量之和</p>
+<h4 id="Golang-是面对对象语言吗"><a href="#Golang-是面对对象语言吗" class="headerlink" title="Golang 是面对对象语言吗"></a>Golang 是面对对象语言吗</h4><p>Java 面向对象核心特征：封装、继承、多态，golang虽然可以通过各种方式达到类似的功能，但 golang 算是面向对象的语言吗</p>
+<p>严格来讲，<strong>Go不是OOP的语言，但是又允许有OOP的编程风格</strong></p>
+<p>面向对象程序设计(OOP)是一种计算机编程架构。 OOP的一条基本原则是计算机程序由单个能够起到子程序作用的单元或对象组合而成。 OOP达到了软件工程的三个主要目标：重用性、灵活性和扩展性。 OOP=对象+类+继承+多态+消息，其中核心概念是<strong>类和对象</strong></p>
+<p>go 官网自己说是 <code>Yes and No</code>, 也就是说 go 允许 OOP 的编程风格，但又缺乏一些 java 和 C++ 中常见的 <code>类, 对象, 继承 等语言层面支持的结构</code></p>
+<h4 id="golang-没有三元操作符"><a href="#golang-没有三元操作符" class="headerlink" title="golang 没有三元操作符 : ?"></a>golang 没有三元操作符 <code>: ?</code></h4><h4 id="new-与-make-的区别"><a href="#new-与-make-的区别" class="headerlink" title="new() 与 make() 的区别"></a><code>new()</code> 与 <code>make()</code> 的区别</h4><p><code>new</code> 只能传递一个参数，该参数为一个任意类型，可以是Go内建的类型，也可以是自定义的类型</p>
 <p>new 函数做了如下事情:</p>
 <ul>
 <li>分配内存</li>
@@ -558,13 +579,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">104k</span>
+    <span title="站点总字数">106k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">1:35</span>
+    <span title="站点阅读时长">1:36</span>
   </span>
 </div>
 
