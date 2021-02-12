@@ -31,7 +31,7 @@
 <meta property="og:description" content="在软体架构和程序设计领域，前端是软体系统中直接和用户交互的部分，而后端控制着软件的输出的编程语言">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-07-12T07:57:02.000Z">
-<meta property="article:modified_time" content="2021-02-12T06:57:40.245Z">
+<meta property="article:modified_time" content="2021-02-12T07:48:26.890Z">
 <meta property="article:author" content="ifcalm">
 <meta property="article:tag" content="面试">
 <meta name="twitter:card" content="summary">
@@ -422,7 +422,13 @@
 </li>
 </ol>
 <h4 id="事务日志"><a href="#事务日志" class="headerlink" title="事务日志"></a>事务日志</h4><p>待补充</p>
-<h3 id="grpc遵循什么协议"><a href="#grpc遵循什么协议" class="headerlink" title="grpc遵循什么协议"></a><code>grpc</code>遵循什么协议</h3><h3 id="grpc内部原理是什么"><a href="#grpc内部原理是什么" class="headerlink" title="grpc内部原理是什么"></a><code>grpc</code>内部原理是什么</h3><h3 id="http2的特点是什么，与http1-1的对比"><a href="#http2的特点是什么，与http1-1的对比" class="headerlink" title="http2的特点是什么，与http1.1的对比"></a><code>http2</code>的特点是什么，与<code>http1.1</code>的对比</h3><h3 id="client如何实现长连接"><a href="#client如何实现长连接" class="headerlink" title="client如何实现长连接"></a>client如何实现长连接</h3><h3 id="大文件排序"><a href="#大文件排序" class="headerlink" title="大文件排序"></a>大文件排序</h3><h3 id="基本排序，哪些是稳定的"><a href="#基本排序，哪些是稳定的" class="headerlink" title="基本排序，哪些是稳定的"></a>基本排序，哪些是稳定的</h3><p>稳定性: 稳定排序算法会让原本有相等键值的纪录维持相对次序。也就是如果一个排序算法是稳定的，当有两个相等键值的纪录<code>R</code>和<code>S</code>，且在原本的列表中<code>R</code>出现在<code>S</code>之前，在排序过的列表中<code>R</code>也将会是在<code>S</code>之前</p>
+<h3 id="grpc遵循什么协议"><a href="#grpc遵循什么协议" class="headerlink" title="grpc遵循什么协议"></a><code>grpc</code>遵循什么协议</h3><h3 id="grpc内部原理是什么"><a href="#grpc内部原理是什么" class="headerlink" title="grpc内部原理是什么"></a><code>grpc</code>内部原理是什么</h3><h3 id="http2的特点是什么，与http1-1的对比"><a href="#http2的特点是什么，与http1-1的对比" class="headerlink" title="http2的特点是什么，与http1.1的对比"></a><code>http2</code>的特点是什么，与<code>http1.1</code>的对比</h3><ul>
+<li>HTTP2使用的是二进制传送，HTTP1.X是文本传送, 二进制传送的单位是帧和流。帧组成了流，同时流还有流ID标示</li>
+<li>HTTP2支持多路复用, 因为有流ID，所以通过同一个http请求实现多个http请求传输变成了可能，可以通过流ID来标示究竟是哪个流从而定位到是哪个http请求</li>
+<li>HTTP2通过gzip和compress压缩头部然后再发送，同时客户端和服务器端同时维护一张头信息表，所有字段都记录在这张表中，这样后面每次传输只需要传输表里面的索引Id就行，通过索引ID就可以知道表头的值了</li>
+<li>HTTP2支持服务器推送, HTTP2支持在客户端未经请求许可的情况下，主动向客户端推送内容</li>
+</ul>
+<h3 id="client如何实现长连接"><a href="#client如何实现长连接" class="headerlink" title="client如何实现长连接"></a>client如何实现长连接</h3><h3 id="大文件排序"><a href="#大文件排序" class="headerlink" title="大文件排序"></a>大文件排序</h3><h3 id="基本排序，哪些是稳定的"><a href="#基本排序，哪些是稳定的" class="headerlink" title="基本排序，哪些是稳定的"></a>基本排序，哪些是稳定的</h3><p>稳定性: 稳定排序算法会让原本有相等键值的纪录维持相对次序。也就是如果一个排序算法是稳定的，当有两个相等键值的纪录<code>R</code>和<code>S</code>，且在原本的列表中<code>R</code>出现在<code>S</code>之前，在排序过的列表中<code>R</code>也将会是在<code>S</code>之前</p>
 <h4 id="稳定的排序算法"><a href="#稳定的排序算法" class="headerlink" title="稳定的排序算法:"></a>稳定的排序算法:</h4><ul>
 <li>冒泡排序</li>
 <li>插入排序</li>
@@ -590,7 +596,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">123k</span>
+    <span title="站点总字数">124k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
