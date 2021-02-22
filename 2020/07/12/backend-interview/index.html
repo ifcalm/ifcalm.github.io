@@ -31,7 +31,7 @@
 <meta property="og:description" content="在软体架构和程序设计领域，前端是软体系统中直接和用户交互的部分，而后端控制着软件的输出的编程语言">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-07-12T07:57:02.000Z">
-<meta property="article:modified_time" content="2021-02-22T15:12:18.414Z">
+<meta property="article:modified_time" content="2021-02-22T15:18:24.006Z">
 <meta property="article:author" content="ifcalm">
 <meta property="article:tag" content="面试">
 <meta name="twitter:card" content="summary">
@@ -497,7 +497,18 @@
 <li>TCP首部开销20字节. UDP的首部开销小，只有8个字节</li>
 <li>TCP的逻辑通信信道是全双工的可靠信道，UDP则是不可靠信道</li>
 </ol>
-<h3 id="time-wait的作用"><a href="#time-wait的作用" class="headerlink" title="time-wait的作用"></a><code>time-wait</code>的作用</h3><h3 id="数据库如何建索引"><a href="#数据库如何建索引" class="headerlink" title="数据库如何建索引"></a>数据库如何建索引</h3><h3 id="孤儿进程，僵尸进程"><a href="#孤儿进程，僵尸进程" class="headerlink" title="孤儿进程，僵尸进程"></a>孤儿进程，僵尸进程</h3><h3 id="死锁条件，如何避免"><a href="#死锁条件，如何避免" class="headerlink" title="死锁条件，如何避免"></a>死锁条件，如何避免</h3><h3 id="linux命令，查看端口占用，cpu负载，内存占用，如何发送信号给一个进程"><a href="#linux命令，查看端口占用，cpu负载，内存占用，如何发送信号给一个进程" class="headerlink" title="linux命令，查看端口占用，cpu负载，内存占用，如何发送信号给一个进程"></a>linux命令，查看端口占用，cpu负载，内存占用，如何发送信号给一个进程</h3><h3 id="git文件版本，使用顺序，merge跟rebase"><a href="#git文件版本，使用顺序，merge跟rebase" class="headerlink" title="git文件版本，使用顺序，merge跟rebase"></a>git文件版本，使用顺序，<code>merge</code>跟<code>rebase</code></h3><h3 id="一般会用到哪些数据结构"><a href="#一般会用到哪些数据结构" class="headerlink" title="一般会用到哪些数据结构"></a>一般会用到哪些数据结构</h3><h3 id="链表和数组相比-有什么优缺点"><a href="#链表和数组相比-有什么优缺点" class="headerlink" title="链表和数组相比, 有什么优缺点"></a>链表和数组相比, 有什么优缺点</h3><p>数组,在内存上给出了连续的空间. 链表,内存地址上可以是不连续的</p>
+<h3 id="time-wait的作用"><a href="#time-wait的作用" class="headerlink" title="time-wait的作用"></a><code>time-wait</code>的作用</h3><h3 id="数据库如何建索引"><a href="#数据库如何建索引" class="headerlink" title="数据库如何建索引"></a>数据库如何建索引</h3><h3 id="孤儿进程，僵尸进程"><a href="#孤儿进程，僵尸进程" class="headerlink" title="孤儿进程，僵尸进程"></a>孤儿进程，僵尸进程</h3><h3 id="死锁条件，如何避免"><a href="#死锁条件，如何避免" class="headerlink" title="死锁条件，如何避免"></a>死锁条件，如何避免</h3><h3 id="linux命令，查看端口占用，cpu负载，内存占用，如何发送信号给一个进程"><a href="#linux命令，查看端口占用，cpu负载，内存占用，如何发送信号给一个进程" class="headerlink" title="linux命令，查看端口占用，cpu负载，内存占用，如何发送信号给一个进程"></a>linux命令，查看端口占用，cpu负载，内存占用，如何发送信号给一个进程</h3><h3 id="git文件版本，使用顺序，merge跟rebase"><a href="#git文件版本，使用顺序，merge跟rebase" class="headerlink" title="git文件版本，使用顺序，merge跟rebase"></a>git文件版本，使用顺序，<code>merge</code>跟<code>rebase</code></h3><h3 id="一般会用到哪些数据结构"><a href="#一般会用到哪些数据结构" class="headerlink" title="一般会用到哪些数据结构"></a>一般会用到哪些数据结构</h3><ul>
+<li>数组</li>
+<li>栈</li>
+<li>队列</li>
+<li>链表</li>
+<li>图</li>
+<li>树</li>
+<li>前缀树</li>
+<li>哈希表</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1634155">常见数据结构</a></p>
+<h3 id="链表和数组相比-有什么优缺点"><a href="#链表和数组相比-有什么优缺点" class="headerlink" title="链表和数组相比, 有什么优缺点"></a>链表和数组相比, 有什么优缺点</h3><p>数组,在内存上给出了连续的空间. 链表,内存地址上可以是不连续的</p>
 <p>数组内的数据可随机访问.但链表不具备随机访问性</p>
 <p>链表的扩展性比数组好.因为一个数组建立后所占用的空间大小就是固定的.如果满了就没法扩展.只能新建一个更大空间的数组.而链表不是固定的,可以很方便的扩展</p>
 <p>内存地址的利用率方面.不管你内存里还有多少空间,如果没办法一次性给出数组所需的要空间,那就会提示内存不足,磁盘空间整理的原因之一在这里.而链表可以是分散的空间地址</p>
