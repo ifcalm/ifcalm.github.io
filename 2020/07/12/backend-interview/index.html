@@ -31,7 +31,7 @@
 <meta property="og:description" content="在软体架构和程序设计领域，前端是软体系统中直接和用户交互的部分，而后端控制着软件的输出的编程语言">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-07-12T07:57:02.000Z">
-<meta property="article:modified_time" content="2021-02-24T13:55:05.056Z">
+<meta property="article:modified_time" content="2021-02-24T14:25:38.523Z">
 <meta property="article:author" content="ifcalm">
 <meta property="article:tag" content="面试">
 <meta name="twitter:card" content="summary">
@@ -253,14 +253,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>18k</span>
+      <span>19k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>16 分钟</span>
+      <span>17 分钟</span>
     </span>
 </div>
 
@@ -644,7 +644,46 @@
 <li>第二次握手(SYN=1, ACK=1, seq=y, ACKnum=x+1)<br>服务器发回确认包(ACK)应答。即 SYN 标志位和 ACK 标志位均为1。服务器端选择自己 ISN 序列号，放到 Seq 域里，同时将确认序号(Acknowledgement Number)设置为客户的 ISN 加1，即X+1。 发送完毕后，服务器端进入 <code>SYN_RCVD</code> 状态</li>
 <li>第三次握手(ACK=1，ACKnum=y+1)<br>客户端再次发送确认包(ACK)，SYN 标志位为0，ACK 标志位为1，并且把服务器发来 ACK 的序号字段+1，放在确定字段中发送给对方，并且在数据段放写ISN的+1, 发送完毕后，客户端进入 <code>ESTABLISHED</code> 状态，当服务器端接收到这个包时，也进入 <code>ESTABLISHED</code> 状态，TCP 握手结束</li>
 </ul>
-<h3 id="数据库隔离级别"><a href="#数据库隔离级别" class="headerlink" title="数据库隔离级别"></a>数据库隔离级别</h3><h3 id="cookie与session"><a href="#cookie与session" class="headerlink" title="cookie与session"></a><code>cookie</code>与<code>session</code></h3><h3 id="select-和-epoll"><a href="#select-和-epoll" class="headerlink" title="select 和 epoll"></a>select 和 epoll</h3><h3 id="TCP-拥塞控制"><a href="#TCP-拥塞控制" class="headerlink" title="TCP 拥塞控制"></a><code>TCP</code> 拥塞控制</h3><h3 id="Mysql-用的是什么数据结构"><a href="#Mysql-用的是什么数据结构" class="headerlink" title="Mysql 用的是什么数据结构"></a><code>Mysql</code> 用的是什么数据结构</h3><h3 id="kafka-的工作原理"><a href="#kafka-的工作原理" class="headerlink" title="kafka 的工作原理"></a><code>kafka</code> 的工作原理</h3><h3 id="详细描述一下-HTTPS-的加密过程，需要几次通信"><a href="#详细描述一下-HTTPS-的加密过程，需要几次通信" class="headerlink" title="详细描述一下 HTTPS 的加密过程，需要几次通信"></a>详细描述一下 <code>HTTPS</code> 的加密过程，需要几次通信</h3><h3 id="三次握手和四次挥手，说一下-time-wait"><a href="#三次握手和四次挥手，说一下-time-wait" class="headerlink" title="三次握手和四次挥手，说一下 time_wait"></a>三次握手和四次挥手，说一下 <code>time_wait</code></h3><h3 id="Mysql-的幻读是怎么个情况，Mysql-是如何避免的"><a href="#Mysql-的幻读是怎么个情况，Mysql-是如何避免的" class="headerlink" title="Mysql 的幻读是怎么个情况，Mysql 是如何避免的"></a><code>Mysql</code> 的幻读是怎么个情况，<code>Mysql</code> 是如何避免的</h3><h3 id="自旋锁和互斥锁有什么区别"><a href="#自旋锁和互斥锁有什么区别" class="headerlink" title="自旋锁和互斥锁有什么区别"></a>自旋锁和互斥锁有什么区别</h3><h3 id="用过哪些分布式锁"><a href="#用过哪些分布式锁" class="headerlink" title="用过哪些分布式锁"></a>用过哪些分布式锁</h3><h3 id="redis-setnx-expire-有什么缺点，如何优化"><a href="#redis-setnx-expire-有什么缺点，如何优化" class="headerlink" title="redis setnx + expire 有什么缺点，如何优化"></a>redis <code>setnx + expire</code> 有什么缺点，如何优化</h3><h3 id="打开一个-URL-的过程"><a href="#打开一个-URL-的过程" class="headerlink" title="打开一个 URL 的过程"></a>打开一个 <code>URL</code> 的过程</h3><h3 id="B-树-和-B-树的区别，为什么-mysql-要用-B-树，mongodb-要用-B-树"><a href="#B-树-和-B-树的区别，为什么-mysql-要用-B-树，mongodb-要用-B-树" class="headerlink" title="B 树 和 B+ 树的区别，为什么 mysql 要用 B+ 树，mongodb 要用 B 树"></a><code>B</code> 树 和 <code>B+</code> 树的区别，为什么<code> mysql</code> 要用 <code>B+</code> 树，<code>mongodb</code> 要用 <code>B</code> 树</h3><h3 id="redis-的跳表，为什么不用红黑树"><a href="#redis-的跳表，为什么不用红黑树" class="headerlink" title="redis 的跳表，为什么不用红黑树"></a><code>redis</code> 的跳表，为什么不用红黑树</h3><h3 id="redis-集群是怎么实现的，说一下一致性-hash"><a href="#redis-集群是怎么实现的，说一下一致性-hash" class="headerlink" title="redis 集群是怎么实现的，说一下一致性 hash"></a><code>redis</code> 集群是怎么实现的，说一下一致性 <code>hash</code></h3><h3 id="进程的调度"><a href="#进程的调度" class="headerlink" title="进程的调度"></a>进程的调度</h3><h3 id="Mysql-集群如何保证数据的一致性"><a href="#Mysql-集群如何保证数据的一致性" class="headerlink" title="Mysql 集群如何保证数据的一致性"></a><code>Mysql</code> 集群如何保证数据的一致性</h3><h3 id="Mysql-集群在保证强一致性的情况下，如何保证高并发"><a href="#Mysql-集群在保证强一致性的情况下，如何保证高并发" class="headerlink" title="Mysql 集群在保证强一致性的情况下，如何保证高并发"></a><code>Mysql</code> 集群在保证强一致性的情况下，如何保证高并发</h3><h3 id="哪些操作会导致内存泄漏"><a href="#哪些操作会导致内存泄漏" class="headerlink" title="哪些操作会导致内存泄漏"></a>哪些操作会导致内存泄漏</h3><p>内存泄漏，就是不再需要的对象仍然存在内存中，内存泄漏不断堆积的后果就是内存溢出，即内存不够用。</p>
+<h3 id="数据库隔离级别"><a href="#数据库隔离级别" class="headerlink" title="数据库隔离级别"></a>数据库隔离级别</h3><p>事务的四种隔离级别:</p>
+<table>
+<thead>
+<tr>
+<th>隔离级别</th>
+<th align="center">脏读</th>
+<th>幻读</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>未提交读（Read uncommitted）</td>
+<td align="center">可能</td>
+<td>可能</td>
+</tr>
+<tr>
+<td>已提交读（Read committed）</td>
+<td align="center">不可能</td>
+<td>可能</td>
+</tr>
+<tr>
+<td>可重复读（Repeatable read）</td>
+<td align="center">不可能</td>
+<td>可能</td>
+</tr>
+<tr>
+<td>可串行化（Serializable ）</td>
+<td align="center">不可能</td>
+<td>不可能</td>
+</tr>
+</tbody></table>
+<p><strong>脏读:</strong> 当一个事务允许读取另外一个事务修改但未提交的数据时，就可能发生脏读</p>
+<p><strong>不可重复读:</strong> 在一次事务中，当一行数据获取两遍得到不同的结果表示发生了不可重复读</p>
+<p><strong>幻读:</strong> 在事务执行过程中，当两个完全相同的查询语句执行得到不同的结果集, 这种现象称为幻读.</p>
+<ul>
+<li>可串行化: 可串行化（SERIALIZABLE）是最高的隔离级别, 在基于锁机制并发控制的DBMS上，可串行化要求在选定对象上的读锁和写锁直到事务结束后才能释放。在SELECT的查询中使用一个“WHERE”子句来描述一个范围时应该获得一个<strong>范围锁</strong>（range-locks）。这种机制可以避免幻读现象</li>
+<li>可重复读: 在可重复读隔离级别中，基于锁机制并发控制的DBMS需要对选定对象的读锁（read locks）和写锁（write locks）一直保持到事务结束，但不要求范围锁，因此可能会发生<strong>幻读</strong></li>
+<li>提交读: 在提交读（READ COMMITTED）级别中，基于锁机制并发控制的DBMS需要对选定对象的写锁一直保持到事务结束，但是读锁在SELECT操作完成后马上释放, 因此不可重复读现象可能会发生。和前一种隔离级别一样，也不要求范围锁</li>
+<li>未提交读: 未提交读（READ UNCOMMITTED）是最低的隔离级别。允许脏读（dirty reads），事务可以看到其他事务<strong>尚未提交</strong>的修改</li>
+</ul>
+<h3 id="cookie与session"><a href="#cookie与session" class="headerlink" title="cookie与session"></a><code>cookie</code>与<code>session</code></h3><h3 id="select-和-epoll"><a href="#select-和-epoll" class="headerlink" title="select 和 epoll"></a>select 和 epoll</h3><h3 id="TCP-拥塞控制"><a href="#TCP-拥塞控制" class="headerlink" title="TCP 拥塞控制"></a><code>TCP</code> 拥塞控制</h3><h3 id="Mysql-用的是什么数据结构"><a href="#Mysql-用的是什么数据结构" class="headerlink" title="Mysql 用的是什么数据结构"></a><code>Mysql</code> 用的是什么数据结构</h3><h3 id="kafka-的工作原理"><a href="#kafka-的工作原理" class="headerlink" title="kafka 的工作原理"></a><code>kafka</code> 的工作原理</h3><h3 id="详细描述一下-HTTPS-的加密过程，需要几次通信"><a href="#详细描述一下-HTTPS-的加密过程，需要几次通信" class="headerlink" title="详细描述一下 HTTPS 的加密过程，需要几次通信"></a>详细描述一下 <code>HTTPS</code> 的加密过程，需要几次通信</h3><h3 id="三次握手和四次挥手，说一下-time-wait"><a href="#三次握手和四次挥手，说一下-time-wait" class="headerlink" title="三次握手和四次挥手，说一下 time_wait"></a>三次握手和四次挥手，说一下 <code>time_wait</code></h3><h3 id="Mysql-的幻读是怎么个情况，Mysql-是如何避免的"><a href="#Mysql-的幻读是怎么个情况，Mysql-是如何避免的" class="headerlink" title="Mysql 的幻读是怎么个情况，Mysql 是如何避免的"></a><code>Mysql</code> 的幻读是怎么个情况，<code>Mysql</code> 是如何避免的</h3><h3 id="自旋锁和互斥锁有什么区别"><a href="#自旋锁和互斥锁有什么区别" class="headerlink" title="自旋锁和互斥锁有什么区别"></a>自旋锁和互斥锁有什么区别</h3><h3 id="用过哪些分布式锁"><a href="#用过哪些分布式锁" class="headerlink" title="用过哪些分布式锁"></a>用过哪些分布式锁</h3><h3 id="redis-setnx-expire-有什么缺点，如何优化"><a href="#redis-setnx-expire-有什么缺点，如何优化" class="headerlink" title="redis setnx + expire 有什么缺点，如何优化"></a>redis <code>setnx + expire</code> 有什么缺点，如何优化</h3><h3 id="打开一个-URL-的过程"><a href="#打开一个-URL-的过程" class="headerlink" title="打开一个 URL 的过程"></a>打开一个 <code>URL</code> 的过程</h3><h3 id="B-树-和-B-树的区别，为什么-mysql-要用-B-树，mongodb-要用-B-树"><a href="#B-树-和-B-树的区别，为什么-mysql-要用-B-树，mongodb-要用-B-树" class="headerlink" title="B 树 和 B+ 树的区别，为什么 mysql 要用 B+ 树，mongodb 要用 B 树"></a><code>B</code> 树 和 <code>B+</code> 树的区别，为什么<code> mysql</code> 要用 <code>B+</code> 树，<code>mongodb</code> 要用 <code>B</code> 树</h3><h3 id="redis-的跳表，为什么不用红黑树"><a href="#redis-的跳表，为什么不用红黑树" class="headerlink" title="redis 的跳表，为什么不用红黑树"></a><code>redis</code> 的跳表，为什么不用红黑树</h3><h3 id="redis-集群是怎么实现的，说一下一致性-hash"><a href="#redis-集群是怎么实现的，说一下一致性-hash" class="headerlink" title="redis 集群是怎么实现的，说一下一致性 hash"></a><code>redis</code> 集群是怎么实现的，说一下一致性 <code>hash</code></h3><h3 id="进程的调度"><a href="#进程的调度" class="headerlink" title="进程的调度"></a>进程的调度</h3><h3 id="Mysql-集群如何保证数据的一致性"><a href="#Mysql-集群如何保证数据的一致性" class="headerlink" title="Mysql 集群如何保证数据的一致性"></a><code>Mysql</code> 集群如何保证数据的一致性</h3><h3 id="Mysql-集群在保证强一致性的情况下，如何保证高并发"><a href="#Mysql-集群在保证强一致性的情况下，如何保证高并发" class="headerlink" title="Mysql 集群在保证强一致性的情况下，如何保证高并发"></a><code>Mysql</code> 集群在保证强一致性的情况下，如何保证高并发</h3><h3 id="哪些操作会导致内存泄漏"><a href="#哪些操作会导致内存泄漏" class="headerlink" title="哪些操作会导致内存泄漏"></a>哪些操作会导致内存泄漏</h3><p>内存泄漏，就是不再需要的对象仍然存在内存中，内存泄漏不断堆积的后果就是内存溢出，即内存不够用。</p>
 <p>垃圾回收机制会定期扫描对象，如果一个对象没有被其他对象引用，或两个对象互相引用但没有被第三个对象引用，则它们的内存会被回收</p>
 <ol>
 <li>单例造成的内存泄漏<br>由于单例的静态特性使得其生命周期和应用的生命周期一样长，如果一个对象已经不再需要使用了，而单例对象还持有该对象的引用，就会使得该对象不能被正常回收，从而导致了内存泄漏</li>
