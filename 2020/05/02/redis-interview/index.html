@@ -31,7 +31,7 @@
 <meta property="og:description" content="Redis是一个使用 ANSI C 编写的开源、支持网络、基于内存、分布式、可选持久性的键值对存储数据库">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-05-02T11:11:34.000Z">
-<meta property="article:modified_time" content="2021-01-12T11:27:40.167Z">
+<meta property="article:modified_time" content="2021-03-03T13:30:23.436Z">
 <meta property="article:author" content="ifcalm">
 <meta property="article:tag" content="面试">
 <meta property="article:tag" content="Redis">
@@ -148,7 +148,7 @@
 
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
@@ -161,6 +161,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%94%AE%E5%80%BC%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="nav-number">1.</span> <span class="nav-text">键值数据库的概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%94%AE%E5%80%BC%E5%AF%B9%E4%BF%9D%E5%AD%98%E5%9C%A8%E5%86%85%E5%AD%98%E8%BF%98%E6%98%AF%E5%A4%96%E5%AD%98"><span class="nav-number">2.</span> <span class="nav-text">键值对保存在内存还是外存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%94%AE%E5%80%BC%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E7%BB%84%E6%88%90%E9%83%A8%E5%88%86"><span class="nav-number">3.</span> <span class="nav-text">键值数据库的组成部分</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Redis-%E5%92%8C-Memcached-%E7%9A%84%E6%AF%94%E8%BE%83"><span class="nav-number">4.</span> <span class="nav-text">Redis 和 Memcached 的比较</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Redis-%E4%B8%8E%E8%B7%B3%E8%A1%A8%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="nav-number">5.</span> <span class="nav-text">Redis 与跳表的关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Redis-%E9%AB%98%E6%95%88%E7%8E%87%E7%9A%84%E7%BC%98%E7%94%B1"><span class="nav-number">6.</span> <span class="nav-text">Redis 高效率的缘由</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -253,7 +254,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>0</span>
+      <span>1.3k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -272,7 +273,35 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        
+        <h3 id="键值数据库的概念"><a href="#键值数据库的概念" class="headerlink" title="键值数据库的概念"></a>键值数据库的概念</h3><p>Redis 是典型的键值数据库，键值数据库里面可以存什么样的数据，对数据可以做什么样的操作，也就是<strong>数据模型和操作接口</strong></p>
+<p>对于键值数据库而言，基本的数据模型是 <code>key-value</code> 模型</p>
+<p>不同键值数据库支持的 <code>key</code> 类型一般差异不大，而 <code>value</code> 类型则有较大差别。我们在对键值数据库进行选型时，一个重要的考虑因素是它支持的 <code>value</code> 类型。例如，Memcached 支持的 <code>value</code> 类型仅为 String 类型，而 Redis 支持的 <code>value</code> 类型包括了 String、哈希表、列表、集合等。Redis 能够在实际业务场景中得到广泛的应用，就是得益于支持多样化类型的 <code>value</code></p>
+<p>键值数据库的基本操作无外乎增删改查：</p>
+<ul>
+<li>PUT：新写入或更新一个 key-value 对</li>
+<li>GET：根据一个 key 读取相应的 value 值</li>
+<li>DELETE：根据一个 key 删除整个 key-value 对</li>
+</ul>
+<h3 id="键值对保存在内存还是外存"><a href="#键值对保存在内存还是外存" class="headerlink" title="键值对保存在内存还是外存"></a>键值对保存在内存还是外存</h3><ul>
+<li>保存在内存的好处是读写很快，但是，潜在的风险是一旦掉电，所有的数据都会丢失</li>
+<li>保存在外存，虽然可以避免数据丢失，但是受限于磁盘的慢速读写，键值数据库的整体性能会被拉低</li>
+</ul>
+<p>因此，如何进行设计选择，我们通常需要考虑键值数据库的主要<strong>应用场景</strong></p>
+<p>例如，缓存场景下的数据需要能快速访问但允许丢失，那么，用于此场景的键值数据库通常采用内存保存键值数据。Memcached 和 Redis 都是属于<strong>内存键值数据库</strong>。对于 Redis 而言，缓存是非常重要的一个应用场景</p>
+<h3 id="键值数据库的组成部分"><a href="#键值数据库的组成部分" class="headerlink" title="键值数据库的组成部分"></a>键值数据库的组成部分</h3><ul>
+<li>访问框架<br>访问模式通常有两种：一种是通过函数库调用的方式供外部应用使用，另一种是通过网络框架以 Socket 通信的形式对外提供键值对操作。Memcached 和 Redis 则是通过网络框架访问</li>
+<li>索引模块<br>索引的作用是让键值数据库根据 key 找到相应 value 的存储位置，进而执行操作。索引的类型有很多，常见的有哈希表、B+ 树、字典树等。不同的索引结构在性能、空间消耗、并发控制等方面具有不同的特征。Memcached 和 Redis 采用哈希表作为 key-value 索引。内存键值数据库采用哈希表作为索引，很大一部分原因在于，其键值数据基本都是保存在内存中的，而内存的高性能随机访问特性可以很好地与哈希表 <code>O(1)</code> 的操作复杂度相匹配</li>
+<li>操作模块</li>
+<li>存储模块</li>
+</ul>
+<h3 id="Redis-和-Memcached-的比较"><a href="#Redis-和-Memcached-的比较" class="headerlink" title="Redis 和 Memcached 的比较"></a>Redis 和 Memcached 的比较</h3><p><strong>Redis是二进制安全的，不关心序列化和反序列化</strong></p>
+<p>memcached的只支持String，想要获取制定的数据，是不可以的，必须全量返回，这就造成了返回体比较大，但是Redis的Hash结构可以返回指定的二级key或者一段List或者Set，返回体小，也标志着通过网卡的流量少，更符合Redis的<code>epoll</code>的网络模型</p>
+<h3 id="Redis-与跳表的关系"><a href="#Redis-与跳表的关系" class="headerlink" title="Redis 与跳表的关系"></a>Redis 与跳表的关系</h3><p>跳表是在Redis的value类型为有序集合时采用的一种数据组织结构，作为集合内元素的索引，在有序集合中进行操作时会依赖于跳表索引。但是从key找到value本身这个过程还是由全局哈希表索引完成</p>
+<h3 id="Redis-高效率的缘由"><a href="#Redis-高效率的缘由" class="headerlink" title="Redis 高效率的缘由"></a>Redis 高效率的缘由</h3><ul>
+<li>它是内存数据库，所有操作都在内存上完成，内存的访问速度本身就很快</li>
+<li>键值对是按一定的数据结构来组织的，操作键值对最终就是对数据结构进行增删改查操作，所以高效的数据结构是 Redis 快速处理数据的基础</li>
+</ul>
+
     </div>
 
     
@@ -350,13 +379,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">144k</span>
+    <span title="站点总字数">145k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">2:11</span>
+    <span title="站点阅读时长">2:12</span>
   </span>
 </div>
 
