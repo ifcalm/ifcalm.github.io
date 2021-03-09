@@ -31,7 +31,7 @@
 <meta property="og:description" content="Redis是一个使用 ANSI C 编写的开源、支持网络、基于内存、分布式、可选持久性的键值对存储数据库">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-05-02T11:11:34.000Z">
-<meta property="article:modified_time" content="2021-03-08T15:21:44.965Z">
+<meta property="article:modified_time" content="2021-03-09T15:09:18.837Z">
 <meta property="article:author" content="ifcalm">
 <meta property="article:tag" content="面试">
 <meta property="article:tag" content="Redis">
@@ -254,14 +254,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>3.8k</span>
+      <span>4k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>3 分钟</span>
+      <span>4 分钟</span>
     </span>
 </div>
 
@@ -371,7 +371,8 @@
 <li>数组对CPU高速缓存支持更友好，所以Redis在设计时，集合数据元素较少情况下，默认采用内存紧凑排列的方式存储，同时利用CPU高速缓存不会降低访问速度。当数据元素超过设定阈值后，避免查询时间复杂度太高，转为哈希和跳表数据结构存储，保证查询效率</li>
 <li>Redis的List底层使用压缩列表本质上是将所有元素紧挨着存储，所以分配的是一块连续的内存空间，虽然数据结构本身没有时间复杂度的优势，但是这样节省空间而且也能避免一些内存碎片</li>
 </ul>
-<h3 id="为什么单线程的-Redis-能那么快"><a href="#为什么单线程的-Redis-能那么快" class="headerlink" title="为什么单线程的 Redis 能那么快"></a>为什么单线程的 Redis 能那么快</h3>
+<h3 id="为什么单线程的-Redis-能那么快"><a href="#为什么单线程的-Redis-能那么快" class="headerlink" title="为什么单线程的 Redis 能那么快"></a>为什么单线程的 Redis 能那么快</h3><p>Redis 是单线程，主要是指 Redis 的网络 IO 和键值对读写是由一个线程来完成的，这也是 Redis 对外提供键值存储服务的主要流程。但 Redis 的其他功能，比如持久化、异步删除、集群数据同步等，其实是由额外的线程执行的, Redis 并不是单线程，但是我们一般把 Redis 称为单线程高性能</p>
+
     </div>
 
     
