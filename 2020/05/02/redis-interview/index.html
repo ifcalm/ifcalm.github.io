@@ -31,7 +31,7 @@
 <meta property="og:description" content="Redis是一个使用 ANSI C 编写的开源、支持网络、基于内存、分布式、可选持久性的键值对存储数据库">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-05-02T11:11:34.000Z">
-<meta property="article:modified_time" content="2021-03-09T15:09:18.837Z">
+<meta property="article:modified_time" content="2021-03-10T15:02:14.627Z">
 <meta property="article:author" content="ifcalm">
 <meta property="article:tag" content="面试">
 <meta property="article:tag" content="Redis">
@@ -161,7 +161,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%94%AE%E5%80%BC%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="nav-number">1.</span> <span class="nav-text">键值数据库的概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%94%AE%E5%80%BC%E5%AF%B9%E4%BF%9D%E5%AD%98%E5%9C%A8%E5%86%85%E5%AD%98%E8%BF%98%E6%98%AF%E5%A4%96%E5%AD%98"><span class="nav-number">2.</span> <span class="nav-text">键值对保存在内存还是外存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%94%AE%E5%80%BC%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E7%BB%84%E6%88%90%E9%83%A8%E5%88%86"><span class="nav-number">3.</span> <span class="nav-text">键值数据库的组成部分</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Redis-%E5%92%8C-Memcached-%E7%9A%84%E6%AF%94%E8%BE%83"><span class="nav-number">4.</span> <span class="nav-text">Redis 和 Memcached 的比较</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Redis-%E4%B8%8E%E8%B7%B3%E8%A1%A8%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="nav-number">5.</span> <span class="nav-text">Redis 与跳表的关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Redis-%E9%AB%98%E6%95%88%E7%8E%87%E7%9A%84%E7%BC%98%E7%94%B1"><span class="nav-number">6.</span> <span class="nav-text">Redis 高效率的缘由</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Redis-%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="nav-number">7.</span> <span class="nav-text">Redis 的数据类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Redis-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%BA%95%E5%B1%82%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="nav-number">8.</span> <span class="nav-text">Redis 数据类型的底层数据结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Redis-%E9%94%AE%E5%92%8C%E5%80%BC%E7%94%A8%E4%BB%80%E4%B9%88%E7%BB%93%E6%9E%84%E7%BB%84%E7%BB%87%E7%9A%84"><span class="nav-number">9.</span> <span class="nav-text">Redis 键和值用什么结构组织的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E5%93%88%E5%B8%8C%E8%A1%A8%E6%93%8D%E4%BD%9C%E5%8F%98%E6%85%A2%E4%BA%86"><span class="nav-number">10.</span> <span class="nav-text">为什么哈希表操作变慢了</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#rehash-%E7%9A%84%E8%BF%87%E7%A8%8B"><span class="nav-number">11.</span> <span class="nav-text">rehash 的过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9B%86%E5%90%88%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E7%9A%84%E6%93%8D%E4%BD%9C"><span class="nav-number">12.</span> <span class="nav-text">集合数据类型的操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B4%E6%95%B0%E6%95%B0%E7%BB%84%E5%92%8C%E5%8E%8B%E7%BC%A9%E5%88%97%E8%A1%A8%E5%9C%A8%E6%9F%A5%E6%89%BE%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6%E6%96%B9%E9%9D%A2%E5%B9%B6%E6%B2%A1%E6%9C%89%E5%BE%88%E5%A4%A7%E7%9A%84%E4%BC%98%E5%8A%BF%EF%BC%8C%E9%82%A3%E4%B8%BA%E4%BB%80%E4%B9%88-Redis-%E8%BF%98%E4%BC%9A%E6%8A%8A%E5%AE%83%E4%BB%AC%E4%BD%9C%E4%B8%BA%E5%BA%95%E5%B1%82%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%91%A2"><span class="nav-number">13.</span> <span class="nav-text">整数数组和压缩列表在查找时间复杂度方面并没有很大的优势，那为什么 Redis 还会把它们作为底层数据结构呢</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E5%8D%95%E7%BA%BF%E7%A8%8B%E7%9A%84-Redis-%E8%83%BD%E9%82%A3%E4%B9%88%E5%BF%AB"><span class="nav-number">14.</span> <span class="nav-text">为什么单线程的 Redis 能那么快</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%94%AE%E5%80%BC%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="nav-number">1.</span> <span class="nav-text">键值数据库的概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%94%AE%E5%80%BC%E5%AF%B9%E4%BF%9D%E5%AD%98%E5%9C%A8%E5%86%85%E5%AD%98%E8%BF%98%E6%98%AF%E5%A4%96%E5%AD%98"><span class="nav-number">2.</span> <span class="nav-text">键值对保存在内存还是外存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%94%AE%E5%80%BC%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E7%BB%84%E6%88%90%E9%83%A8%E5%88%86"><span class="nav-number">3.</span> <span class="nav-text">键值数据库的组成部分</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Redis-%E5%92%8C-Memcached-%E7%9A%84%E6%AF%94%E8%BE%83"><span class="nav-number">4.</span> <span class="nav-text">Redis 和 Memcached 的比较</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Redis-%E4%B8%8E%E8%B7%B3%E8%A1%A8%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="nav-number">5.</span> <span class="nav-text">Redis 与跳表的关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Redis-%E9%AB%98%E6%95%88%E7%8E%87%E7%9A%84%E7%BC%98%E7%94%B1"><span class="nav-number">6.</span> <span class="nav-text">Redis 高效率的缘由</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Redis-%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="nav-number">7.</span> <span class="nav-text">Redis 的数据类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Redis-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%BA%95%E5%B1%82%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="nav-number">8.</span> <span class="nav-text">Redis 数据类型的底层数据结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Redis-%E9%94%AE%E5%92%8C%E5%80%BC%E7%94%A8%E4%BB%80%E4%B9%88%E7%BB%93%E6%9E%84%E7%BB%84%E7%BB%87%E7%9A%84"><span class="nav-number">9.</span> <span class="nav-text">Redis 键和值用什么结构组织的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E5%93%88%E5%B8%8C%E8%A1%A8%E6%93%8D%E4%BD%9C%E5%8F%98%E6%85%A2%E4%BA%86"><span class="nav-number">10.</span> <span class="nav-text">为什么哈希表操作变慢了</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#rehash-%E7%9A%84%E8%BF%87%E7%A8%8B"><span class="nav-number">11.</span> <span class="nav-text">rehash 的过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9B%86%E5%90%88%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E7%9A%84%E6%93%8D%E4%BD%9C"><span class="nav-number">12.</span> <span class="nav-text">集合数据类型的操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B4%E6%95%B0%E6%95%B0%E7%BB%84%E5%92%8C%E5%8E%8B%E7%BC%A9%E5%88%97%E8%A1%A8%E5%9C%A8%E6%9F%A5%E6%89%BE%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6%E6%96%B9%E9%9D%A2%E5%B9%B6%E6%B2%A1%E6%9C%89%E5%BE%88%E5%A4%A7%E7%9A%84%E4%BC%98%E5%8A%BF%EF%BC%8C%E9%82%A3%E4%B8%BA%E4%BB%80%E4%B9%88-Redis-%E8%BF%98%E4%BC%9A%E6%8A%8A%E5%AE%83%E4%BB%AC%E4%BD%9C%E4%B8%BA%E5%BA%95%E5%B1%82%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%91%A2"><span class="nav-number">13.</span> <span class="nav-text">整数数组和压缩列表在查找时间复杂度方面并没有很大的优势，那为什么 Redis 还会把它们作为底层数据结构呢</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E5%8D%95%E7%BA%BF%E7%A8%8B%E7%9A%84-Redis-%E8%83%BD%E9%82%A3%E4%B9%88%E5%BF%AB"><span class="nav-number">14.</span> <span class="nav-text">为什么单线程的 Redis 能那么快</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E6%93%8D%E4%BD%9C%E7%9A%84%E5%9F%BA%E6%9C%AC-IO-%E6%A8%A1%E5%9E%8B%E5%92%8C%E6%BD%9C%E5%9C%A8%E7%9A%84%E9%98%BB%E5%A1%9E%E7%82%B9"><span class="nav-number">15.</span> <span class="nav-text">网络操作的基本 IO 模型和潜在的阻塞点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%9E%E9%98%BB%E5%A1%9E%E6%A8%A1%E5%BC%8F"><span class="nav-number">16.</span> <span class="nav-text">非阻塞模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8%E7%9A%84%E9%AB%98%E6%80%A7%E8%83%BD-I-O-%E6%A8%A1%E5%9E%8B"><span class="nav-number">17.</span> <span class="nav-text">基于多路复用的高性能 I&#x2F;O 模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%9A%84%E5%BC%80%E9%94%80"><span class="nav-number">18.</span> <span class="nav-text">多线程的开销</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Redis-%E7%BA%BF%E7%A8%8B%E7%9A%84%E4%B8%89%E4%B8%AA%E9%97%AE%E9%A2%98"><span class="nav-number">19.</span> <span class="nav-text">Redis 线程的三个问题</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -254,14 +254,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>4k</span>
+      <span>6.4k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>4 分钟</span>
+      <span>6 分钟</span>
     </span>
 </div>
 
@@ -372,6 +372,52 @@
 <li>Redis的List底层使用压缩列表本质上是将所有元素紧挨着存储，所以分配的是一块连续的内存空间，虽然数据结构本身没有时间复杂度的优势，但是这样节省空间而且也能避免一些内存碎片</li>
 </ul>
 <h3 id="为什么单线程的-Redis-能那么快"><a href="#为什么单线程的-Redis-能那么快" class="headerlink" title="为什么单线程的 Redis 能那么快"></a>为什么单线程的 Redis 能那么快</h3><p>Redis 是单线程，主要是指 Redis 的网络 IO 和键值对读写是由一个线程来完成的，这也是 Redis 对外提供键值存储服务的主要流程。但 Redis 的其他功能，比如持久化、异步删除、集群数据同步等，其实是由额外的线程执行的, Redis 并不是单线程，但是我们一般把 Redis 称为单线程高性能</p>
+<p>通常来说，单线程的处理能力要比多线程差很多，但是 Redis 却能使用单线程模型达到每秒数十万级别的处理能力</p>
+<ul>
+<li>一方面，Redis 的大部分操作在内存上完成，再加上它采用了高效的数据结构，例如哈希表和跳表，这是它实现高性能的一个重要原因</li>
+<li>另一方面，就是 Redis 采用了多路复用机制，使其在网络 IO 操作中能并发处理大量的客户端请求，实现高吞吐率</li>
+</ul>
+<p><em>Redis 采用单线程进行 IO，如果线程被阻塞了，就无法进行多路复用了</em></p>
+<h3 id="网络操作的基本-IO-模型和潜在的阻塞点"><a href="#网络操作的基本-IO-模型和潜在的阻塞点" class="headerlink" title="网络操作的基本 IO 模型和潜在的阻塞点"></a>网络操作的基本 IO 模型和潜在的阻塞点</h3><p>Redis 为了处理一个 Get 请求，需要以下几步:</p>
+<ol>
+<li>需要监听客户端请求（bind/listen）</li>
+<li>和客户端建立连接（accept）</li>
+<li>从 socket 中读取请求（recv）</li>
+<li>解析客户端发送请求（parse）</li>
+<li>根据请求类型读取键值数据（get）</li>
+<li>最后给客户端返回结果，即向 socket 中写回数据（send）</li>
+</ol>
+<p>其中 1-4, 6 是属于网络 IO 处理，而 5 属于键值数据操作，因为Redis 是单线程，最基本的一种实现是在一个线程中依次执行上面说的这些操作</p>
+<p>但是，在这里的网络 IO 操作中，有潜在的阻塞点，分别是 <code>accept()</code> 和 <code>recv()</code>。当 Redis 监听到一个客户端有连接请求，但一直未能成功建立起连接时，会阻塞在 <code>accept()</code> 函数这里，导致其他客户端无法和 Redis 建立连接。类似的，当 Redis 通过 <code>recv()</code> 从一个客户端读取数据时，如果数据一直没有到达，Redis 也会一直阻塞在 <code>recv()</code></p>
+<p>这就导致 Redis 整个线程阻塞，无法处理其他客户端请求，效率很低。不过，socket 网络模型本身支持<strong>非阻塞模式</strong></p>
+<h3 id="非阻塞模式"><a href="#非阻塞模式" class="headerlink" title="非阻塞模式"></a>非阻塞模式</h3><p>Socket 网络模型的非阻塞模式设置，主要体现在三个关键的函数调用上</p>
+<ul>
+<li>socket()</li>
+<li>listen()</li>
+<li>accept()</li>
+</ul>
+<p>在 socket 模型中，不同操作调用后会返回不同的套接字类型。<code>socket()</code> 方法会返回主动套接字，然后调用 <code>listen()</code> 方法，将主动套接字转化为监听套接字，此时，可以监听来自客户端的连接请求。最后，调用 <code>accept()</code> 方法接收到达的客户端连接，并返回已连接套接字</p>
+<p>针对监听套接字，我们可以设置非阻塞模式：当 Redis 调用 <code>accept()</code> 但一直未有连接请求到达时，Redis 线程可以返回处理其他操作，而不用一直等待。但是，你要注意的是，调用 <code>accept()</code> 时，已经存在监听套接字了</p>
+<p>虽然 Redis 线程可以不用继续等待，但是总得有机制继续在监听套接字上等待后续连接请求，并在有请求时通知 Redis</p>
+<p>类似的，我们也可以针对已连接套接字设置非阻塞模式：Redis 调用 <code>recv()</code> 后，如果已连接套接字上一直没有数据到达，Redis 线程同样可以返回处理其他操作。我们也需要有机制继续监听该已连接套接字，并在有数据达到时通知 Redis</p>
+<p>这样才能保证 Redis 线程，既不会像基本 IO 模型中一直在阻塞点等待，也不会导致 Redis 无法处理实际到达的连接请求或数据</p>
+<h3 id="基于多路复用的高性能-I-O-模型"><a href="#基于多路复用的高性能-I-O-模型" class="headerlink" title="基于多路复用的高性能 I/O 模型"></a>基于多路复用的高性能 I/O 模型</h3><p>Linux 中的 <strong>IO 多路复用机制</strong> 是指一个线程处理多个 IO 流，就是我们经常听到的 <code>select/epoll</code> 机制</p>
+<p>在 Redis 只运行单线程的情况下，该机制允许内核中，同时存在多个监听套接字和已连接套接字。内核会一直监听这些套接字上的连接请求或数据请求。一旦有请求到达，就会交给 Redis 线程处理，这就实现了一个 Redis 线程处理多个 IO 流的效果</p>
+<p>Redis 网络框架调用 <code>epoll</code> 机制，让内核监听这些套接字。此时，Redis 线程不会阻塞在某一个特定的监听或已连接套接字上，也就是说，不会阻塞在某一个特定的客户端请求处理上。正因为此，Redis 可以同时和多个客户端连接并处理请求，从而提升并发性</p>
+<p>为了在请求到达时能通知到 Redis 线程，<code>select/epoll</code> 提供了基于事件的回调机制，即针对不同事件的发生，调用相应的处理函数</p>
+<p>回调机制是怎么工作的呢？其实，<code>select/epol</code>l 一旦监测到 套接字 上有请求到达时，就会触发相应的事件</p>
+<p>这些事件会被放进一个事件队列，Redis 单线程对该事件队列不断进行处理。这样一来，Redis 无需一直轮询是否有请求实际发生，这就可以避免造成 CPU 资源浪费。同时，Redis 在对事件队列中的事件进行处理时，会调用相应的处理函数，这就实现了基于事件的回调。因为 Redis 一直在对事件队列进行处理，所以能及时响应客户端请求，提升 Redis 的响应性能</p>
+<h3 id="多线程的开销"><a href="#多线程的开销" class="headerlink" title="多线程的开销"></a>多线程的开销</h3><p>对于一个多线程的系统来说，在有合理的资源分配的情况下，可以增加系统中处理请求操作的资源实体，进而提升系统能够同时处理的请求数，即吞吐率</p>
+<p>但系统中通常会存在被多线程同时访问的共享资源，比如一个共享的数据结构。当有多个线程要修改这个共享资源时，为了保证共享资源的正确性，就需要有额外的机制进行保证，而这个额外的机制，就会带来额外的开销</p>
+<p>多线程编程模式面临的共享资源的并发访问控制问题，并发访问控制一直是多线程开发中的一个难点问题，如果没有精细的设计，比如说，只是简单地采用一个粗粒度互斥锁，就会出现不理想的结果：即使增加了线程，大部分线程也在等待获取访问共享资源的互斥锁，并行变串行，系统吞吐率并没有随着线程的增加而增加</p>
+<p>采用多线程开发一般会引入同步原语来保护共享资源的并发访问</p>
+<h3 id="Redis-线程的三个问题"><a href="#Redis-线程的三个问题" class="headerlink" title="Redis 线程的三个问题"></a>Redis 线程的三个问题</h3><ul>
+<li>Redis 真的只有单线程吗</li>
+<li>为什么用单线程</li>
+<li>单线程为什么这么快</li>
+</ul>
+<p>Redis 单线程是指它对网络 IO 和数据读写的操作采用了一个线程，而采用单线程的一个核心原因是避免多线程开发的并发控制问题。单线程的 Redis 也能获得高性能，跟多路复用的 IO 模型密切相关，因为这避免了 <code>accept()</code> 和 <code>send()/recv()</code> 潜在的网络 IO 操作阻塞点</p>
+<p><strong>2020 年 5 月，Redis 6.0 的稳定版发布了，Redis 6.0 中提出了多线程模型。那么，这个多线程模型和这节课所说的 IO 模型有什么关联？会引入复杂的并发控制问题吗？会给 Redis 6.0 带来多大提升？</strong></p>
 
     </div>
 
@@ -450,13 +496,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">148k</span>
+    <span title="站点总字数">150k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">2:15</span>
+    <span title="站点阅读时长">2:17</span>
   </span>
 </div>
 
