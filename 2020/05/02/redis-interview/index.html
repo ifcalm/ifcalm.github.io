@@ -31,7 +31,7 @@
 <meta property="og:description" content="Redis是一个使用 ANSI C 编写的开源、支持网络、基于内存、分布式、可选持久性的键值对存储数据库">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-05-02T11:11:34.000Z">
-<meta property="article:modified_time" content="2021-04-11T07:10:00.528Z">
+<meta property="article:modified_time" content="2021-04-22T15:49:34.396Z">
 <meta property="article:author" content="ifcalm">
 <meta property="article:tag" content="面试">
 <meta property="article:tag" content="Redis">
@@ -562,6 +562,7 @@
 <h3 id="哨兵挂了，主从库还能切换吗"><a href="#哨兵挂了，主从库还能切换吗" class="headerlink" title="哨兵挂了，主从库还能切换吗"></a>哨兵挂了，主从库还能切换吗</h3><p>一旦多个实例组成了哨兵集群，即使有哨兵实例出现故障挂掉了，其他哨兵还能继续协作完成主从库切换的工作，包括判定主库是不是处于下线状态，选择新主库，以及通知从库和客户端</p>
 <h4 id="基于-pub-sub-机制的哨兵集群组成"><a href="#基于-pub-sub-机制的哨兵集群组成" class="headerlink" title="基于 pub/sub 机制的哨兵集群组成"></a>基于 pub/sub 机制的哨兵集群组成</h4><p>哨兵实例之间可以相互发现，要归功于 Redis 提供的 pub/sub 机制，也就是发布 / 订阅机制</p>
 <p>哨兵只要和主库建立起了连接，就可以在主库上发布消息了，比如说发布它自己的连接信息（IP 和端口）。同时，它也可以从主库上订阅消息，获得其他哨兵发布的连接信息。当多个哨兵实例都在主库上做了发布和订阅操作后，它们之间就能知道彼此的 IP 地址和端口</p>
+<p><em>只有订阅了同一个频道的应用，才能通过发布的消息进行信息交换</em></p>
 
     </div>
 
