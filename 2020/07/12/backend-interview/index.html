@@ -31,7 +31,7 @@
 <meta property="og:description" content="在软体架构和程序设计领域，前端是软体系统中直接和用户交互的部分，而后端控制着软件的输出的编程语言">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-07-12T07:57:02.000Z">
-<meta property="article:modified_time" content="2021-05-06T15:37:24.298Z">
+<meta property="article:modified_time" content="2021-05-07T15:33:53.914Z">
 <meta property="article:author" content="ifcalm">
 <meta property="article:tag" content="面试">
 <meta name="twitter:card" content="summary">
@@ -586,7 +586,15 @@
 <li>集合 Set</li>
 <li>有序集合 Zset</li>
 </ul>
-<h3 id="SLB原理"><a href="#SLB原理" class="headerlink" title="SLB原理"></a>SLB原理</h3><h3 id="分布式一致性原则"><a href="#分布式一致性原则" class="headerlink" title="分布式一致性原则"></a>分布式一致性原则</h3><h3 id="智能指针-–-gt-C"><a href="#智能指针-–-gt-C" class="headerlink" title="智能指针 –&gt; C++"></a>智能指针 –&gt; C++</h3><h3 id="唯一索引和主键索引"><a href="#唯一索引和主键索引" class="headerlink" title="唯一索引和主键索引"></a>唯一索引和主键索引</h3><h3 id="tcp粘包"><a href="#tcp粘包" class="headerlink" title="tcp粘包"></a>tcp粘包</h3><p>在socket网络编程中，都是端到端通信，由<code>客户端端口+服务端端口+客户端IP+服务端IP+传输协议</code>组成的五元组可以明确的标识一条连接。在TCP的socket编程中，发送端和接收端都有成对的socket。发送端为了将多个发往接收端的包，更加高效的的发给接收端，于是采用了优化算法（Nagle算法），将多次间隔较小、数据量较小的数据，合并成一个数据量大的数据块，然后进行封包。那么这样一来，接收端就必须使用高效科学的拆包机制来分辨这些数据</p>
+<h3 id="SLB原理"><a href="#SLB原理" class="headerlink" title="SLB原理"></a>SLB原理</h3><h3 id="分布式一致性原则"><a href="#分布式一致性原则" class="headerlink" title="分布式一致性原则"></a>分布式一致性原则</h3><h3 id="智能指针-–-gt-C"><a href="#智能指针-–-gt-C" class="headerlink" title="智能指针 –&gt; C++"></a>智能指针 –&gt; C++</h3><h3 id="唯一索引和主键索引"><a href="#唯一索引和主键索引" class="headerlink" title="唯一索引和主键索引"></a>唯一索引和主键索引</h3><p>唯一索引不允许两行具有相同的索引值, 如果现有数据中存在重复的键值，则大多数数据库都不允许将新创建的唯一索引与表一起保存。当新数据将使表中的键值重复时，数据库也拒绝接受此数据。例如，如果在 employee 表中的职员姓氏(lname) 列上创建了唯一索引，则所有职员不能同姓</p>
+<p>主键索引是唯一索引的特殊类型, 数据库表通常有一列或列组合，其值用来唯一标识表中的每一行。该列称为表的主键, 在数据库关系图中为表定义一个主键将自动创建主键索引，主键索引是唯一索引的特殊类型。主键索引要求主键中的每个值是唯一的。当在查询中使用主键索引时，它还允许快速访问数据</p>
+<ul>
+<li>主键不一定只包含一个字段，所以如果你在主键的其中一个字段建唯一索引还是必要的</li>
+<li>主健不可为空，唯一索引可</li>
+<li>主健也可是多个字段的组合</li>
+<li>对于主健sql server/mysql等都会自动建立唯一索引</li>
+</ul>
+<h3 id="tcp粘包"><a href="#tcp粘包" class="headerlink" title="tcp粘包"></a>tcp粘包</h3><p>在socket网络编程中，都是端到端通信，由<code>客户端端口+服务端端口+客户端IP+服务端IP+传输协议</code>组成的五元组可以明确的标识一条连接。在TCP的socket编程中，发送端和接收端都有成对的socket。发送端为了将多个发往接收端的包，更加高效的的发给接收端，于是采用了优化算法（Nagle算法），将多次间隔较小、数据量较小的数据，合并成一个数据量大的数据块，然后进行封包。那么这样一来，接收端就必须使用高效科学的拆包机制来分辨这些数据</p>
 <p>TCP粘包就是指发送方发送的若干包数据到达接收方时粘成了一包，从接收缓冲区来看，后一包数据的头紧接着前一包数据的尾，出现粘包的原因是多方面的，可能是来自发送方，也可能是来自接收方。 TCP接收到数据包时，并不会马上交到应用层进行处理，或者说应用层并不会立即处理</p>
 <h3 id="进程虚拟空间分布"><a href="#进程虚拟空间分布" class="headerlink" title="进程虚拟空间分布"></a>进程虚拟空间分布</h3><h3 id="c-和-go-和-java-对比"><a href="#c-和-go-和-java-对比" class="headerlink" title="c++ 和 go 和 java 对比"></a>c++ 和 go 和 java 对比</h3><h3 id="堆的时间复杂度，稳定性"><a href="#堆的时间复杂度，稳定性" class="headerlink" title="堆的时间复杂度，稳定性"></a>堆的时间复杂度，稳定性</h3><h3 id="几种基本排序算法"><a href="#几种基本排序算法" class="headerlink" title="几种基本排序算法"></a>几种基本排序算法</h3><ul>
 <li>冒泡排序</li>
