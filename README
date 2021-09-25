@@ -1,1 +1,11 @@
 ### 文章托管
+
+### 网站介绍
+
+静态网页生成器文档：https://hexo.io/zh-cn/
+
+### 网站发布命令
+
+- hexo g, 生成
+- hexo s, 启动服务预览
+- hexo d, 部署到 GitHub
